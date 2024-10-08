@@ -1,2 +1,2 @@
-# sorex
+# Sorex
 Notes app
