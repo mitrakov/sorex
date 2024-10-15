@@ -1,4 +1,3 @@
-//import Foundation
 import SQLite
 
 struct Note: Identifiable {
@@ -13,7 +12,7 @@ class SQLiteDatabase {
     func getTags() -> [String] {
         let sql = "SELECT name FROM tag ORDER BY name;"
         do {
-            return try db.prepare(sql).map({row in "\(row[0] ?? "")"})
+            return try db.prepare(sql).map {"\($0[0] ?? "")"}
         } catch {
             print(error)
             return []
@@ -29,9 +28,8 @@ class SQLiteDatabase {
           INNER JOIN tag         USING (tag_id)
           GROUP BY note_id;
         """
-        
         do {
-            return try db.prepare(sql).map({row in Note(id: Int("\(row[0] ?? "")") ?? 0, data: "\(row[1] ?? "")", tags: "\(row[2] ?? "")")})
+            return try db.prepare(sql).map {Note(id: Int("\($0[0] ?? "")") ?? 0, data: "\($0[1] ?? "")", tags: "\($0[2] ?? "")")}
         } catch {
             print(error)
             return []
@@ -47,9 +45,8 @@ class SQLiteDatabase {
           WHERE name = ?
           ORDER BY note_to_tag.updated_at DESC;
         """
-        
         do {
-            return try db.prepare(sql).run(tag).map({row in Note(id: Int("\(row[0] ?? "")") ?? 0, data: "\(row[1] ?? "")", tags: tag)})
+            return try db.prepare(sql).run(tag).map {Note(id: Int("\($0[0] ?? "")") ?? 0, data: "\($0[1] ?? "")", tags: tag)}
         } catch {
             print(error)
             return []
