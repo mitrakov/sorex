@@ -2,6 +2,7 @@ import SwiftUI
 import MarkdownView
 
 struct ContentView: View {
+    @State var currentText = ""
     @State var markdown = [""]
     let db = SQLiteDatabase()
     
@@ -21,11 +22,23 @@ struct ContentView: View {
                 }
             }
         } detail: {
-            ScrollView {
-                ForEach(markdown, id: \.self) { md in
-                    MarkdownView(text: md)
-                    Divider()
+            VStack {
+                HSplitView {
+                    ScrollView {
+                        TextField("Input your note here...", text: $currentText, axis: .vertical)
+                            .textFieldStyle(.roundedBorder)
+                            .lineLimit(10)
+                            .padding()
+                    }
+                    ScrollView {
+                        ForEach(markdown, id: \.self) { md in
+                            MarkdownView(text: md)
+                            Divider()
+                        }
+                    }
                 }
+                Spacer()
+                Text("Hey Hey")
             }
         }
     }
