@@ -44,17 +44,8 @@ struct ContentView: View {
             }
         } detail: {
             VStack {
-                HSplitView {
-                    if editorMode == .edit {
-                        TextEditor(text: $currentText)
-                            .font(.custom("HelveticaNeue", size: 14))
-                            .foregroundColor(.black)
-                            .padding(4)
-                            .onChange(of: currentText, perform: { newValue in
-                                markdown = [newValue] // TODO dispatch action?
-                            })
-                    }
-
+                switch editorMode {
+                case .read:
                     ScrollView {
                         ForEach(markdown, id: \.self) { md in
                             MarkdownView(text: md)
@@ -63,23 +54,36 @@ struct ContentView: View {
                         }
                     }
                     .padding(4)
-                }
-                Spacer()
-                HStack {
-                    TextField("Tags...", text: $currentTags)
-                        .frame(maxWidth: 200)
-                        .cornerRadius(16)
-                    
-                    Button(action: {}, label: {
-                        Label(title: {
-                            Text("Add Note")
-                        }, icon: {
-                            Image(systemName: "plus.bubble.fill")
-                        })
-                        .foregroundColor(.black.opacity(0.8))
-                    })
-                    
+                case .edit:
+                    HSplitView {
+                        TextEditor(text: $currentText)
+                            .font(.custom("HelveticaNeue", size: 14))
+                            .foregroundColor(.black)
+                            .padding(4)
+
+                        ScrollView {
+                            MarkdownView(text: currentText)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                        .padding(4)
+                    }
                     Spacer()
+                    HStack {
+                        TextField("Tags...", text: $currentTags)
+                            .frame(maxWidth: 200)
+                            .cornerRadius(16)
+                        
+                        Button(action: {}, label: {
+                            Label(title: {
+                                Text("Add Note")
+                            }, icon: {
+                                Image(systemName: "plus.bubble.fill")
+                            })
+                            .foregroundColor(.black.opacity(0.8))
+                        })
+                        
+                        Spacer()
+                    }.padding(.bottom, 10)
                 }
             }
         }
