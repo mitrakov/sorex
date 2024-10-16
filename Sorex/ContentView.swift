@@ -46,9 +46,12 @@ struct ContentView: View {
                 HSplitView {
                     if editorMode == .edit {
                         TextEditor(text: $currentText)
+                            .font(.custom("HelveticaNeue", size: 14))
                             .foregroundColor(.black)
-                            .textFieldStyle(.roundedBorder)
                             .padding(4)
+                            .onChange(of: currentText, perform: { newValue in
+                                markdown = [newValue] // TODO dispatch action?
+                            })
                     }
 
                     ScrollView {
