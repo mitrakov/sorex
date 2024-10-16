@@ -24,18 +24,19 @@ struct ContentView: View {
         } detail: {
             VStack {
                 HSplitView {
-                    ScrollView {
-                        TextField("Input your note here...", text: $currentText, axis: .vertical)
-                            .textFieldStyle(.roundedBorder)
-                            .lineLimit(10)
-                            .padding()
-                    }
+                    TextEditor(text: $currentText)
+                        .foregroundColor(.black)
+                        .textFieldStyle(.roundedBorder)
+                        .padding(4)
+
                     ScrollView {
                         ForEach(markdown, id: \.self) { md in
                             MarkdownView(text: md)
+                                .textSelection(.enabled)
                             Divider()
                         }
                     }
+                    .padding(4)
                 }
                 Spacer()
                 Text("Hey Hey")
