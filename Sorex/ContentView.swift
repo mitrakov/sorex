@@ -3,6 +3,7 @@ import MarkdownView
 
 struct ContentView: View {
     @State var currentText = ""
+    @State var currentTags = ""
     @State var markdown = [""]
     @State var editorMode = EditorMode.edit
     
@@ -64,7 +65,22 @@ struct ContentView: View {
                     .padding(4)
                 }
                 Spacer()
-                Text("Hey Hey")
+                HStack {
+                    TextField("Tags...", text: $currentTags)
+                        .frame(maxWidth: 200)
+                        .cornerRadius(16)
+                    
+                    Button(action: {}, label: {
+                        Label(title: {
+                            Text("Add Note")
+                        }, icon: {
+                            Image(systemName: "plus.bubble.fill")
+                        })
+                        .foregroundColor(.black.opacity(0.8))
+                    })
+                    
+                    Spacer()
+                }
             }
         }
     }
