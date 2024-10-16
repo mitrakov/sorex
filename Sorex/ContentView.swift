@@ -4,30 +4,52 @@ import MarkdownView
 struct ContentView: View {
     @State var currentText = ""
     @State var markdown = [""]
+    @State var editorMode = EditorMode.edit
+    
     let db = SQLiteDatabase()
     
     var body: some View {
         NavigationSplitView {
-            ScrollView {
-                ForEach(db.getTags(), id: \.self) { tag in
-                    HStack {
-                        Button(action: {
-                            markdown = db.searchByTag(tag: tag).map {$0.data}
-                        }, label: {
-                            Text(tag)
-                        })
-                        
-                        Spacer()
+            VStack {
+                HStack {
+                    Button(action: {
+                        editorMode = .edit
+                        markdown = [currentText]
+                    }, label: {
+                        Image(systemName: "folder.fill.badge.plus")
+                            .padding(8)
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .frame(width: 30, height: 30)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 5, y: 5)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: -5, y: 5)
+                    }).buttonStyle(PlainButtonStyle())
+                    Spacer()
+                }
+                ScrollView {
+                    ForEach(db.getTags(), id: \.self) { tag in
+                        HStack {
+                            Button(action: {
+                                editorMode = .read
+                                markdown = db.searchByTag(tag: tag).map {$0.data}
+                            }, label: {
+                                Text(tag)
+                            })
+                            
+                            Spacer()
+                        }
                     }
                 }
             }
         } detail: {
             VStack {
                 HSplitView {
-                    TextEditor(text: $currentText)
-                        .foregroundColor(.black)
-                        .textFieldStyle(.roundedBorder)
-                        .padding(4)
+                    if editorMode == .edit {
+                        TextEditor(text: $currentText)
+                            .foregroundColor(.black)
+                            .textFieldStyle(.roundedBorder)
+                            .padding(4)
+                    }
 
                     ScrollView {
                         ForEach(markdown, id: \.self) { md in
@@ -43,6 +65,10 @@ struct ContentView: View {
             }
         }
     }
+}
+
+enum EditorMode {
+    case read, edit
 }
 
 #Preview {
