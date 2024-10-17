@@ -1,17 +1,28 @@
-//
-//  sorexApp.swift
-//  sorex
-//
-//  Created by Tommy on 15.10.2024.
-//
-
 import SwiftUI
 
 @main
 struct sorexApp: App {
+    let vm = MainViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView(vm: vm)
+        }
+        .commands {
+            CommandGroup(replacing: .textEditing) {
+                Divider()
+                Menu("Import/Export") {
+                    Button("Open it.db") {
+                        vm.openFile("/Users/tommy/Yandex.Disk.localized/all/db/it.db")
+                    }
+                    Button("Open hogar.db") {
+                        vm.openFile("/Users/tommy/Yandex.Disk.localized/all/db/hogar.db")
+                    }
+                    Button("Open cola.db") {
+                        vm.openFile("/Users/tommy/Yandex.Disk.localized/all/db/cola.db")
+                    }
+                }
+            }
         }
     }
 }

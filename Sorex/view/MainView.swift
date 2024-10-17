@@ -1,22 +1,21 @@
 import SwiftUI
 import MarkdownView
 
-struct ContentView: View {
+struct MainView: View {
+    @ObservedObject var vm: MainViewModel
     @State var currentText = ""
     @State var currentTags = ""
     @State var markdown = [""]
     @State var editorMode = EditorMode.edit
     
-    let db = SQLiteDatabase()
-    
     var body: some View {
         NavigationSplitView {
             VStack {
                 HStack {
-                    Button(action: {
+                    Button {
                         editorMode = .edit
                         markdown = [currentText]
-                    }, label: {
+                    } label: {
                         Image(systemName: "folder.fill.badge.plus")
                             .padding(8)
                             .background(Color.white)
@@ -24,18 +23,20 @@ struct ContentView: View {
                             .frame(width: 30, height: 30)
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 5, y: 5)
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: -5, y: 5)
-                    }).buttonStyle(PlainButtonStyle())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
                     Spacer()
                 }
                 ScrollView {
-                    ForEach(db.getTags(), id: \.self) { tag in
+                    ForEach(vm.getTags(), id: \.self) { tag in
                         HStack {
-                            Button(action: {
+                            Button {
                                 editorMode = .read
-                                markdown = db.searchByTag(tag: tag).map {$0.data}
-                            }, label: {
+                                markdown = vm.searchByTag(tag).map {$0.data}
+                            } label: {
                                 Text(tag)
-                            })
+                            }
                             
                             Spacer()
                         }
@@ -73,14 +74,16 @@ struct ContentView: View {
                             .frame(maxWidth: 200)
                             .cornerRadius(16)
                         
-                        Button(action: {}, label: {
-                            Label(title: {
+                        Button{
+                            // not impl
+                        } label: {
+                            Label {
                                 Text("Add Note")
-                            }, icon: {
+                            } icon: {
                                 Image(systemName: "plus.bubble.fill")
-                            })
+                            }
                             .foregroundColor(.black.opacity(0.8))
-                        })
+                        }
                         
                         Spacer()
                     }.padding(.bottom, 10)
@@ -95,6 +98,5 @@ enum EditorMode {
 }
 
 #Preview {
-    ContentView()
+    MainView(vm: MainViewModel())
 }
-

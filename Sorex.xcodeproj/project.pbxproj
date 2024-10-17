@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		652AF3BC2CBE8F7000B0785E /* sorexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AF3BB2CBE8F7000B0785E /* sorexApp.swift */; };
-		652AF3BE2CBE8F7000B0785E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AF3BD2CBE8F7000B0785E /* ContentView.swift */; };
+		652AF3BE2CBE8F7000B0785E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AF3BD2CBE8F7000B0785E /* MainView.swift */; };
 		652AF3C02CBE8F7300B0785E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 652AF3BF2CBE8F7300B0785E /* Assets.xcassets */; };
 		652AF3C32CBE8F7300B0785E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 652AF3C22CBE8F7300B0785E /* Preview Assets.xcassets */; };
 		652AF3CC2CBE8FD900B0785E /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = 652AF3CB2CBE8FD900B0785E /* MarkdownView */; };
 		652AF3CF2CBE900D00B0785E /* database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AF3CE2CBE900D00B0785E /* database.swift */; };
 		652AF3D22CBE902600B0785E /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 652AF3D12CBE902600B0785E /* SQLite */; };
+		65FB6C2D2CC114CF0038D784 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FB6C2C2CC114CF0038D784 /* MainViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		652AF3B82CBE8F7000B0785E /* sorex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sorex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		652AF3BB2CBE8F7000B0785E /* sorexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sorexApp.swift; sourceTree = "<group>"; };
-		652AF3BD2CBE8F7000B0785E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		652AF3BD2CBE8F7000B0785E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		652AF3BF2CBE8F7300B0785E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		652AF3C22CBE8F7300B0785E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		652AF3C42CBE8F7300B0785E /* sorex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = sorex.entitlements; sourceTree = "<group>"; };
 		652AF3CE2CBE900D00B0785E /* database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = database.swift; sourceTree = "<group>"; };
+		65FB6C2C2CC114CF0038D784 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +60,10 @@
 		652AF3BA2CBE8F7000B0785E /* sorex */ = {
 			isa = PBXGroup;
 			children = (
+				65FB6C2B2CC114840038D784 /* viewmodel */,
+				65FB6C2A2CC1147C0038D784 /* view */,
 				652AF3CD2CBE900D00B0785E /* model */,
 				652AF3BB2CBE8F7000B0785E /* sorexApp.swift */,
-				652AF3BD2CBE8F7000B0785E /* ContentView.swift */,
 				652AF3BF2CBE8F7300B0785E /* Assets.xcassets */,
 				652AF3C42CBE8F7300B0785E /* sorex.entitlements */,
 				652AF3C12CBE8F7300B0785E /* Preview Content */,
@@ -82,6 +85,22 @@
 				652AF3CE2CBE900D00B0785E /* database.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		65FB6C2A2CC1147C0038D784 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				652AF3BD2CBE8F7000B0785E /* MainView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		65FB6C2B2CC114840038D784 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				65FB6C2C2CC114CF0038D784 /* MainViewModel.swift */,
+			);
+			path = viewmodel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,9 +181,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				652AF3BE2CBE8F7000B0785E /* ContentView.swift in Sources */,
+				652AF3BE2CBE8F7000B0785E /* MainView.swift in Sources */,
 				652AF3BC2CBE8F7000B0785E /* sorexApp.swift in Sources */,
 				652AF3CF2CBE900D00B0785E /* database.swift in Sources */,
+				65FB6C2D2CC114CF0038D784 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
