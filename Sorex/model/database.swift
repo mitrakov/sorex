@@ -11,14 +11,15 @@ class SQLiteDatabase {
     
     func openDb(_ path: String) {
         do {
-            db = try Connection(path)
+            db = try Connection(path) // old DB connection will be closed by deinit()
+            db?.foreignKeys = true
         } catch {print(error)}
     }
     
     func getTags() -> [String] {
         let sql = "SELECT name FROM tag ORDER BY name;"
         do {
-            return try db?.prepare(sql).map {"\($0[0] ?? "")"} ?? []
+            return try db?.prepare(sql).map {$0[0] as! String} ?? []
         } catch {
             print(error)
             return []
@@ -35,7 +36,7 @@ class SQLiteDatabase {
           GROUP BY note_id;
         """
         do {
-            return try db?.prepare(sql).map {Note(id: Int("\($0[0] ?? "")") ?? 0, data: "\($0[1] ?? "")", tags: "\($0[2] ?? "")")} ?? []
+            return try db?.prepare(sql).map {Note(id: Int($0[0] as! Int64), data: $0[1] as! String, tags: $0[2] as! String)} ?? []
         } catch {
             print(error)
             return []
@@ -52,10 +53,14 @@ class SQLiteDatabase {
           ORDER BY note_to_tag.updated_at DESC;
         """
         do {
-            return try db?.prepare(sql).run(tag).map {Note(id: Int("\($0[0] ?? "")") ?? 0, data: "\($0[1] ?? "")", tags: tag)} ?? []
+            return try db?.prepare(sql).run(tag).map {Note(id: Int($0[0] as! Int64), data: $0[1] as! String, tags: tag)} ?? []
         } catch {
             print(error)
             return []
         }
+    }
+    
+    func hey() {
+        //db.
     }
 }
