@@ -21,6 +21,9 @@ struct sorexApp: App {
                     Button("Open cola.db") {
                         vm.openFile("/Users/tommy/Yandex.Disk.localized/all/db/cola.db")
                     }
+                    Button("DEBUG") {
+                        vm._debug()
+                    }
                 }
             }
         }

@@ -89,7 +89,7 @@ struct MainView: View {
                     }.padding(.bottom, 10)
                 }
             }
-        }
+        }.preferredColorScheme(.light)
     }
 }
 

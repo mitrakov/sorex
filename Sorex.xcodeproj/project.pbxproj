@@ -12,8 +12,9 @@
 		652AF3C02CBE8F7300B0785E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 652AF3BF2CBE8F7300B0785E /* Assets.xcassets */; };
 		652AF3C32CBE8F7300B0785E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 652AF3C22CBE8F7300B0785E /* Preview Assets.xcassets */; };
 		652AF3CC2CBE8FD900B0785E /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = 652AF3CB2CBE8FD900B0785E /* MarkdownView */; };
-		652AF3CF2CBE900D00B0785E /* database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AF3CE2CBE900D00B0785E /* database.swift */; };
+		652AF3CF2CBE900D00B0785E /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AF3CE2CBE900D00B0785E /* SQLiteDatabase.swift */; };
 		652AF3D22CBE902600B0785E /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 652AF3D12CBE902600B0785E /* SQLite */; };
+		65E067C02CC29BFC000A8A70 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E067BF2CC29BFC000A8A70 /* Note.swift */; };
 		65FB6C2D2CC114CF0038D784 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FB6C2C2CC114CF0038D784 /* MainViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +25,8 @@
 		652AF3BF2CBE8F7300B0785E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		652AF3C22CBE8F7300B0785E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		652AF3C42CBE8F7300B0785E /* sorex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = sorex.entitlements; sourceTree = "<group>"; };
-		652AF3CE2CBE900D00B0785E /* database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = database.swift; sourceTree = "<group>"; };
+		652AF3CE2CBE900D00B0785E /* SQLiteDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
+		65E067BF2CC29BFC000A8A70 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		65FB6C2C2CC114CF0038D784 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,7 +84,8 @@
 		652AF3CD2CBE900D00B0785E /* model */ = {
 			isa = PBXGroup;
 			children = (
-				652AF3CE2CBE900D00B0785E /* database.swift */,
+				652AF3CE2CBE900D00B0785E /* SQLiteDatabase.swift */,
+				65E067BF2CC29BFC000A8A70 /* Note.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -181,9 +184,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E067C02CC29BFC000A8A70 /* Note.swift in Sources */,
 				652AF3BE2CBE8F7000B0785E /* MainView.swift in Sources */,
 				652AF3BC2CBE8F7000B0785E /* sorexApp.swift in Sources */,
-				652AF3CF2CBE900D00B0785E /* database.swift in Sources */,
+				652AF3CF2CBE900D00B0785E /* SQLiteDatabase.swift in Sources */,
 				65FB6C2D2CC114CF0038D784 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,4 +20,8 @@ class MainViewModel: ObservableObject {
     func searchByTag(_ tag: String) -> [Note] {
         return db.searchByTag(tag)
     }
+    
+    func _debug() {
+        // db.?
+    }
 }
