@@ -2,29 +2,54 @@ import SwiftUI
 
 @main
 struct sorexApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate // remove standard MacOS menu items
     let vm = MainViewModel()
+    let tmp = [
+        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/it.db",
+        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/cola.db",
+        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/hogar.db",
+        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/estadística.db",
+        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/resolución.db",
+    ]
     
     var body: some Scene {
         WindowGroup {
             MainView(vm: vm)
         }
         .commands {
-            CommandGroup(replacing: .textEditing) {
-                Divider()
-                Menu("Import/Export") {
-                    Button("Open it.db") {
-                        vm.openFile("/Users/tommy/Yandex.Disk.localized/all/db/it.db")
-                    }
-                    Button("Open hogar.db") {
-                        vm.openFile("/Users/tommy/Yandex.Disk.localized/all/db/hogar.db")
-                    }
-                    Button("Open cola.db") {
-                        vm.openFile("/Users/tommy/Yandex.Disk.localized/all/db/cola.db")
-                    }
-                    Button("DEBUG") {
-                        vm._debug()
+            CommandMenu("Filе") {
+                Menu("Open Recent") {
+                    ForEach(tmp, id: \.self) { path in
+                        Button(path) {
+                            print(path)
+                        }
                     }
                 }
+                Divider()
+                Button("New File") {
+                    print("B")
+                }
+                Button("Open...") {
+                    print("C")
+                }
+                Divider()
+                Button("Close File") {
+                    print("D")
+                }
+            }
+        }
+    }
+}
+
+final class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationWillUpdate(_ notification: Notification) {
+        DispatchQueue.main.async {
+            if let menu = NSApplication.shared.mainMenu {
+                menu.items.removeAll{ $0.title == "File" }
+                menu.items.removeAll{ $0.title == "Edit" }
+                menu.items.removeAll{ $0.title == "View" }
+                menu.items.removeAll{ $0.title == "Window" }
+                menu.items.removeAll{ $0.title == "Help" }
             }
         }
     }
