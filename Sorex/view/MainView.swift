@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 import MarkdownView
 
 struct MainView: View {
@@ -7,6 +8,7 @@ struct MainView: View {
     @State var currentTags = ""
     @State var markdown = [""]
     @State var editorMode = EditorMode.edit
+    @State var showFileDialog = false
     
     var body: some View {
         NavigationSplitView {
@@ -89,7 +91,16 @@ struct MainView: View {
                     }.padding(.bottom, 10)
                 }
             }
-        }.preferredColorScheme(.light)
+        }
+        .preferredColorScheme(.light)
+        .fileImporter(isPresented: $showFileDialog, allowedContentTypes: [UTType(filenameExtension: "db")!], onCompletion: { result in
+            switch result {
+                case .success(let url):
+                    vm.openFile(url.path())
+                case .failure(let error):
+                    print(error)
+            }
+        })
     }
 }
 

@@ -17,8 +17,8 @@ struct sorexApp: App {
             MainView(vm: vm)
         }
         .commands {
-            CommandGroup(replacing: .systemServices) {}
-            CommandGroup(replacing: .appVisibility) {}
+            CommandGroup(replacing: .systemServices) {} // remove std group from main menu
+            CommandGroup(replacing: .appVisibility) {} // remove std group from main menu
             CommandMenu("Filе") {
                 Menu("Open Recent") {
                     ForEach(tmp, id: \.self) { path in
@@ -48,7 +48,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         DispatchQueue.main.async {
             if let menu = NSApplication.shared.mainMenu {
                 menu.items.removeAll{ $0.title == "File" }
-                menu.items.removeAll{ $0.title == "Edit" }
+                //menu.items.removeAll{ $0.title == "Edit" } TODO emojis
                 menu.items.removeAll{ $0.title == "View" }
                 menu.items.removeAll{ $0.title == "Window" }
                 menu.items.removeAll{ $0.title == "Help" }
