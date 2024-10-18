@@ -23,20 +23,20 @@ struct sorexApp: App {
                 Menu("Open Recent") {
                     ForEach(tmp, id: \.self) { path in
                         Button(path) {
-                            print(path)
+                            vm.openFile(path)
                         }
                     }
                 }
                 Divider()
                 Button("New File") {
-                    print("B")
+                    vm.newFile()
                 }
                 Button("Open...") {
-                    print("C")
+                    vm.openFile()
                 }
                 Divider()
                 Button("Close File") {
-                    print("D")
+                    vm.closeFile()
                 }
             }
         }

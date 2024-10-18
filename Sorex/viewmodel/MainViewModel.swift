@@ -9,6 +9,23 @@ class MainViewModel: ObservableObject {
         currentPath = path
     }
     
+    func openFile() {
+        let path = "fesfse" // TODO file picker
+        db.openDb(path)
+        currentPath = path
+    }
+    
+    func newFile() {
+        let path = "fesfse" // TODO file picker
+        db.createDb(path)
+        currentPath = path
+    }
+    
+    func closeFile() {
+        db.closeDb()
+        currentPath = nil
+    }
+    
     func getTags() -> [String] {
         return db.getTags()
     }
