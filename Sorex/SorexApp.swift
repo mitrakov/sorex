@@ -17,6 +17,8 @@ struct sorexApp: App {
             MainView(vm: vm)
         }
         .commands {
+            CommandGroup(replacing: .systemServices) {}
+            CommandGroup(replacing: .appVisibility) {}
             CommandMenu("Filе") {
                 Menu("Open Recent") {
                     ForEach(tmp, id: \.self) { path in
