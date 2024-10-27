@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct sorexApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate // remove standard MacOS menu items (https://stackoverflow.com/a/70553784/2212849)
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate // remove standard MacOS menu items (https://stackoverflow.com/a/70553784/2212849)
     let vm = MainViewModel()
     let tmp = [
         "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/it.db",
@@ -48,7 +48,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         DispatchQueue.main.async {
             if let menu = NSApplication.shared.mainMenu {
                 menu.items.removeAll{ $0.title == "File" }
-                //menu.items.removeAll{ $0.title == "Edit" } TODO emojis
+                //menu.items.removeAll{ $0.title == "Edit" } TODO: emojis
                 menu.items.removeAll{ $0.title == "View" }
                 menu.items.removeAll{ $0.title == "Window" }
                 menu.items.removeAll{ $0.title == "Help" }

@@ -1,24 +1,50 @@
-import Foundation
+import AppKit
+import UniformTypeIdentifiers
 
 class MainViewModel: ObservableObject {
     let db = SQLiteDatabase()
-    @Published var currentPath: String?
+    let dbUiType = UTType(filenameExtension: "db")!
+    @Published private var currentPath: String?
     
     func openFile(_ path: String) {
+        print("Opening file \(path)")
         db.openDb(path)
         currentPath = path
     }
     
     func openFile() {
-        let path = "fesfse" // TODO file picker
-        db.openDb(path)
-        currentPath = path
+        let p = NSOpenPanel() // don't use .fileImporter here because of lack of settings
+        p.allowedContentTypes = [dbUiType]
+        p.allowsMultipleSelection = false
+        p.canChooseFiles = true
+        p.canChooseDirectories = false
+        p.isExtensionHidden = false
+        p.allowsOtherFileTypes = false
+        p.message = "Select a DB file"
+        
+        if let path = p.runModal() == .OK ? p.url?.path() : nil {
+            self.openFile(path)
+        }
     }
     
     func newFile() {
-        let path = "fesfse" // TODO file picker
-        db.createDb(path)
-        currentPath = path
+        let p = NSSavePanel() // don't use fileExporter here because of lack of settings
+        p.allowedContentTypes = [dbUiType]
+        p.canCreateDirectories = true
+        p.isExtensionHidden = false
+        p.allowsOtherFileTypes = false
+        p.showsTagField = false
+        p.title = "New DB file"
+        p.message = "Create a new DB file"
+        p.nameFieldLabel = "DB name:"
+        p.nameFieldStringValue = "mydb"
+        
+        if let path = p.runModal() == .OK ? p.url?.path() : nil {
+            // TODO: bug table note already exists (code: 1) (when re-write the file)
+            print("Creating file \(path)")
+            db.createDb(path)
+            currentPath = path
+        }
     }
     
     func closeFile() {

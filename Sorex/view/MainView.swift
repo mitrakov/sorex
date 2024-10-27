@@ -1,14 +1,16 @@
 import SwiftUI
-import UniformTypeIdentifiers
 import MarkdownView
 
+// next música
+// open file dialog in MVVM
+// edit: emojii
+// file settings
 struct MainView: View {
     @ObservedObject var vm: MainViewModel
-    @State var currentText = ""
-    @State var currentTags = ""
-    @State var markdown = [""]
-    @State var editorMode = EditorMode.edit
-    @State var showFileDialog = false
+    @State private var currentText = ""
+    @State private var currentTags = ""
+    @State private var markdown = [""]
+    @State private var editorMode = EditorMode.edit
     
     var body: some View {
         NavigationSplitView {
@@ -93,14 +95,6 @@ struct MainView: View {
             }
         }
         .preferredColorScheme(.light)
-        .fileImporter(isPresented: $showFileDialog, allowedContentTypes: [UTType(filenameExtension: "db")!], onCompletion: { result in
-            switch result {
-                case .success(let url):
-                    vm.openFile(url.path())
-                case .failure(let error):
-                    print(error)
-            }
-        })
     }
 }
 
