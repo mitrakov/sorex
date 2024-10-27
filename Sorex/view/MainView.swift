@@ -1,10 +1,10 @@
 import SwiftUI
 import MarkdownView
 
-// next música
-// open file dialog in MVVM
-// edit: emojii
-// file settings
+// next: recent file list
+// bug: música
+// edit: emojii support
+// bug with overwriting same file
 struct MainView: View {
     @ObservedObject var vm: MainViewModel
     @State private var currentText = ""
