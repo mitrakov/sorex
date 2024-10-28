@@ -6,7 +6,7 @@ let recentFilesKey = "RECENT_FILES"
 struct sorexApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate // remove standard MacOS menu items (https://stackoverflow.com/a/70553784/2212849)
     let vm = MainViewModel()
-    @State var recentFiles = UserDefaults.standard.stringArray(forKey: recentFilesKey) ?? []
+    @State private var recentFiles = UserDefaults.standard.stringArray(forKey: recentFilesKey) ?? []
     
     var body: some Scene {
         WindowGroup {
@@ -20,6 +20,7 @@ struct sorexApp: App {
                     ForEach(recentFiles, id: \.self) { path in
                         Button(path) {
                             vm.openFile(path)
+                            recentFiles = vm.getRecentFiles() // update the menu
                         }
                     }
                 }
@@ -29,7 +30,7 @@ struct sorexApp: App {
                 }
                 Button("Open...") {
                     vm.openFile()
-                    recentFiles = vm.getRecentFiles() // it will update the menu
+                    recentFiles = vm.getRecentFiles() // update the menu
                 }
                 Divider()
                 Button("Close File") {

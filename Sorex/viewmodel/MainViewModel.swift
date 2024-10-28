@@ -7,11 +7,22 @@ class MainViewModel: ObservableObject {
     @Published private var currentPath: String? // for updating parent Views
     
     func openFile(_ path: String) {
-        print("Opening file \(path)")
-        db.openDb(path)
-        updateRecentFilesList(path)
-        currentPath = path
-        // TODO: if file not found, rm from RecentFiles list
+        if FileManager.default.fileExists(atPath: path) {
+            print("Opening file \(path)")
+            db.openDb(path)
+            currentPath = path
+            addToRecentFilesList(path)
+        } else {
+            print("File not found: \(path)")
+            removeFromRecentFilesList(path)
+            
+            let alert = NSAlert()
+            alert.messageText = "Error"
+            alert.informativeText = "File not found:\n\(path)"
+            alert.alertStyle = .critical
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
+        }
     }
     
     func openFile() {
@@ -70,13 +81,12 @@ class MainViewModel: ObservableObject {
         return db.searchByTag(tag)
     }
     
-    private func updateRecentFilesList(_ newItem: String) {
-        var array = getRecentFiles()
-        if let idx = array.firstIndex(of: newItem) {
-            array.remove(at: idx)
-        }
-        array = [newItem] + array
-        UserDefaults.standard.set(array, forKey: recentFilesKey)
+    private func addToRecentFilesList(_ item: String) {
+        UserDefaults.standard.set([item] + getRecentFiles().filter {$0 != item}, forKey: recentFilesKey)
+    }
+    
+    private func removeFromRecentFilesList(_ item: String) {
+        UserDefaults.standard.set(getRecentFiles().filter {$0 != item}, forKey: recentFilesKey)
     }
     
     func _debug() {
