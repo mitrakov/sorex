@@ -11,6 +11,7 @@ class MainViewModel: ObservableObject {
         db.openDb(path)
         updateRecentFilesList(path)
         currentPath = path
+        // TODO: if file not found, rm from RecentFiles list
     }
     
     func openFile() {
@@ -23,7 +24,7 @@ class MainViewModel: ObservableObject {
         p.allowsOtherFileTypes = false
         p.message = "Select a DB file"
         
-        if let path = p.runModal() == .OK ? p.url?.path() : nil {
+        if let path = p.runModal() == .OK ? p.url?.path(percentEncoded: false) : nil { // "percentEncoded: false" allows diacriticals
             self.openFile(path)
         }
     }
@@ -40,7 +41,7 @@ class MainViewModel: ObservableObject {
         p.nameFieldLabel = "DB name:"
         p.nameFieldStringValue = "mydb"
         
-        if let path = p.runModal() == .OK ? p.url?.path() : nil {
+        if let path = p.runModal() == .OK ? p.url?.path(percentEncoded: false) : nil { // "percentEncoded: false" allows diacriticals
             // TODO: bug table note already exists (code: 1) (when re-write the file)
             print("Creating file \(path)")
             db.createDb(path)
