@@ -1,8 +1,6 @@
 import SwiftUI
 import MarkdownView
 
-// next: recent file list
-// bug: música
 // edit: emojii support
 // bug with overwriting same file
 struct MainView: View {
@@ -20,14 +18,21 @@ struct MainView: View {
                         editorMode = .edit
                         markdown = [currentText]
                     } label: {
-                        Image(systemName: "folder.fill.badge.plus")
-                            .padding(8)
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .frame(width: 30, height: 30)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 5, y: 5)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: -5, y: 5)
+                        VStack {
+                            Image(systemName: "plus.app")
+                                .padding(4)
+                                .font(.system(size: 26, weight: .bold))
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .frame(width: 30, height: 30)
+                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 5, y: 5)
+                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: -5, y: 5)
+                            
+                            Text("New")
+                                .foregroundColor(.black)
+                        }
                     }
+                    .padding(.leading, 8)
                     .buttonStyle(PlainButtonStyle())
                     
                     Spacer()
@@ -53,8 +58,11 @@ struct MainView: View {
                 case .read:
                     ScrollView {
                         ForEach(markdown, id: \.self) { md in
-                            MarkdownView(text: md)
-                                .textSelection(.enabled)
+                            ZStack(alignment: .topTrailing) {
+                                MarkdownView(text: md)
+                                    .textSelection(.enabled)
+                                ContextMenu(tags: ["One", "Two"], onEdit: {}, onDelete: {})
+                            }
                             Divider()
                         }
                     }
@@ -78,7 +86,7 @@ struct MainView: View {
                             .frame(maxWidth: 200)
                             .cornerRadius(16)
                         
-                        Button{
+                        Button {
                             // not impl
                         } label: {
                             Label {
