@@ -1,16 +1,12 @@
 import SwiftUI
 
+let recentFilesKey = "RECENT_FILES"
+
 @main
 struct sorexApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate // remove standard MacOS menu items (https://stackoverflow.com/a/70553784/2212849)
     let vm = MainViewModel()
-    let tmp = [
-        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/it.db",
-        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/cola.db",
-        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/hogar.db",
-        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/estadística.db",
-        "/Volumes/Tommy/Users/tommy/Yandex.Disk.localized/all/db/resolución.db",
-    ]
+    @State var recentFiles = UserDefaults.standard.stringArray(forKey: recentFilesKey) ?? []
     
     var body: some Scene {
         WindowGroup {
@@ -21,7 +17,7 @@ struct sorexApp: App {
             CommandGroup(replacing: .appVisibility) {} // remove std group from main menu
             CommandMenu("Filе") {
                 Menu("Open Recent") {
-                    ForEach(tmp, id: \.self) { path in
+                    ForEach(recentFiles, id: \.self) { path in
                         Button(path) {
                             vm.openFile(path)
                         }
@@ -33,10 +29,15 @@ struct sorexApp: App {
                 }
                 Button("Open...") {
                     vm.openFile()
+                    recentFiles = vm.getRecentFiles() // it will update the menu
                 }
                 Divider()
                 Button("Close File") {
                     vm.closeFile()
+                }
+                Divider()
+                Button("DEBUG (rm recentFiles)") {
+                    vm._debug()
                 }
             }
         }

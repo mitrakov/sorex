@@ -4,11 +4,12 @@ import UniformTypeIdentifiers
 class MainViewModel: ObservableObject {
     let db = SQLiteDatabase()
     let dbUiType = UTType(filenameExtension: "db")!
-    @Published private var currentPath: String?
+    @Published private var currentPath: String? // for updating parent Views
     
     func openFile(_ path: String) {
         print("Opening file \(path)")
         db.openDb(path)
+        updateRecentFilesList(path)
         currentPath = path
     }
     
@@ -52,6 +53,10 @@ class MainViewModel: ObservableObject {
         currentPath = nil
     }
     
+    func getRecentFiles() -> [String] {
+        UserDefaults.standard.stringArray(forKey: recentFilesKey) ?? []
+    }
+    
     func getTags() -> [String] {
         return db.getTags()
     }
@@ -64,7 +69,16 @@ class MainViewModel: ObservableObject {
         return db.searchByTag(tag)
     }
     
+    private func updateRecentFilesList(_ newItem: String) {
+        var array = getRecentFiles()
+        if let idx = array.firstIndex(of: newItem) {
+            array.remove(at: idx)
+        }
+        array = [newItem] + array
+        UserDefaults.standard.set(array, forKey: recentFilesKey)
+    }
+    
     func _debug() {
-        // db.?
+        UserDefaults.standard.removeObject(forKey: recentFilesKey)
     }
 }
