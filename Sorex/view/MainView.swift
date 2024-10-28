@@ -7,7 +7,7 @@ struct MainView: View {
     @ObservedObject var vm: MainViewModel
     @State private var currentText = ""
     @State private var currentTags = ""
-    @State private var markdown = [""]
+    @State private var notes: [Note] = []
     @State private var editorMode = EditorMode.edit
     
     var body: some View {
@@ -16,7 +16,7 @@ struct MainView: View {
                 HStack {
                     Button {
                         editorMode = .edit
-                        markdown = [currentText]
+                        notes = []
                     } label: {
                         VStack {
                             Image(systemName: "plus.app")
@@ -42,7 +42,7 @@ struct MainView: View {
                         HStack {
                             Button {
                                 editorMode = .read
-                                markdown = vm.searchByTag(tag).map {$0.data}
+                                notes = vm.searchByTag(tag)
                             } label: {
                                 Text(tag)
                             }
@@ -57,11 +57,11 @@ struct MainView: View {
                 switch editorMode {
                 case .read:
                     ScrollView {
-                        ForEach(markdown, id: \.self) { md in
+                        ForEach(notes) { note in
                             ZStack(alignment: .topTrailing) {
-                                MarkdownView(text: md)
+                                MarkdownView(text: note.data)
                                     .textSelection(.enabled)
-                                ContextMenu(tags: ["One", "Two"], onEdit: {}, onDelete: {})
+                                ContextMenu(tags: note.tags.components(separatedBy: ","), onEdit: {}, onDelete: {})
                             }
                             Divider()
                         }
