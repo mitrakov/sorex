@@ -131,6 +131,28 @@ class SQLiteDatabase {
         } catch {print(error)}
         return []
     }
+    
+    /// Searches for a single note by ID
+    /// - Parameters:
+    ///   - id: note ID
+    /// - Returns: optional Note
+    func searchByID(_ id: Int64) -> Note? {
+        let sql = """
+          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags
+          FROM note
+          INNER JOIN notedata ON note_id = notedata.rowid
+          INNER JOIN note_to_tag USING (note_id)
+          INNER JOIN tag         USING (tag_id)
+          WHERE note_id = ?
+          GROUP BY note_id
+          ;
+        """
+        do {
+            return try db?.run(sql, id).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String)}.first
+        } catch {print(error)}
+
+        return nil
+    }
 
     /// Searches for multiple notes by a given tag
     /// - Parameters:
@@ -138,15 +160,18 @@ class SQLiteDatabase {
     /// - Returns: a list of notes
     func searchByTag(_ tag: String) -> [Note] {
         let sql = """
-          SELECT note_id, data
-          FROM notedata
-          INNER JOIN note_to_tag ON notedata.rowid = note_id
-          INNER JOIN tag USING (tag_id)
-          WHERE name = ?
-          ORDER BY note_to_tag.updated_at DESC;
+          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags
+          FROM note
+          INNER JOIN notedata ON note_id = notedata.rowid
+          INNER JOIN note_to_tag USING (note_id)
+          INNER JOIN tag         USING (tag_id)
+          WHERE note_id IN (SELECT note_id FROM tag INNER JOIN note_to_tag USING (tag_id) WHERE name = ?)
+          GROUP BY note_id
+          ORDER BY note_to_tag.updated_at DESC
+         ;
         """
         do {
-            return try db?.run(sql, tag).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: tag)} ?? []
+            return try db?.run(sql, tag).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String)} ?? []
         } catch {print(error)}
         
         return []
@@ -161,14 +186,14 @@ class SQLiteDatabase {
 
         let sql = """
           SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags
-            FROM note
-            INNER JOIN notedata ON note_id = notedata.rowid
-            INNER JOIN note_to_tag USING (note_id)
-            INNER JOIN tag         USING (tag_id)
-            WHERE data MATCH ?
-            GROUP BY note_id
-            ORDER BY notedata.rank, note.updated_at
-            ;
+          FROM note
+          INNER JOIN notedata ON note_id = notedata.rowid
+          INNER JOIN note_to_tag USING (note_id)
+          INNER JOIN tag         USING (tag_id)
+          WHERE data MATCH ?
+          GROUP BY note_id
+          ORDER BY notedata.rank, note.updated_at
+          ;
         """
         do {
             return try db?.run(sql, word).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String)} ?? []

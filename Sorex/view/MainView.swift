@@ -5,19 +5,19 @@ import MarkdownView
 // bug with overwriting same file
 struct MainView: View {
     @ObservedObject var vm: MainViewModel
-    @State private var currentText = ""              // main text in add/edit mode
-    @State private var currentTags = ""              // comma-separated tags in the text field at the bottom
-    @State private var currentTag = ""               // last searched tag
-    @State private var notes: [Note] = []            // DB notes array for markdown view
-    @State private var editorMode = EditorMode.edit  // edit or view
+    @State private var currentText = ""              // main text in add/edit mode (insert/update note)
+    @State private var currentTags = ""              // comma-separated tags in the text field (insert/update note)
+    @State private var currentNoteId: Int64?         // if present, it's an ID of the note in edit mode
+    @State private var notes: [Note] = []            // in view mode, DB notes array for markdown view
+    @State private var currentTag = ""               // after note deletion we should update view w/o the removed note
+    @State private var editorMode = EditorMode.edit  // edit or view mode
     
     var body: some View {
         NavigationSplitView {
             VStack {
                 HStack {
                     Button {
-                        editorMode = .edit
-                        notes = []
+                        setEditMode()
                     } label: {
                         VStack {
                             Image(systemName: "plus.app")
@@ -42,11 +42,10 @@ struct MainView: View {
                     ForEach(vm.getTags(), id: \.self) { tag in
                         HStack {
                             Button {
-                                editorMode = .read
-                                notes = vm.searchByTag(tag)
-                                currentTag = tag
+                                setReadMode(notes: vm.searchByTag(tag), tag: tag)
                             } label: {
                                 Text(tag)
+                                Spacer()
                             }
                             
                             Spacer()
@@ -63,9 +62,11 @@ struct MainView: View {
                             ZStack(alignment: .topTrailing) {
                                 MarkdownView(text: note.data)
                                     .textSelection(.enabled)
-                                ContextMenu(tags: note.tags.components(separatedBy: ","), onEdit: {}, onDelete: {
+                                ContextMenu(tags: note.tags.components(separatedBy: ","), onEdit: {
+                                    setEditMode(noteId: note.id, text: note.data, tags: note.tags)
+                                }, onDelete: {
                                     vm.deleteNoteById(note.id)
-                                    notes = vm.searchByTag(currentTag) // update view
+                                    setReadMode(notes: vm.searchByTag(currentTag), tag: currentTag)
                                 })
                             }
                             Divider()
@@ -92,8 +93,10 @@ struct MainView: View {
                             .cornerRadius(16)
                         
                         Button {
-                            vm.saveNote(currentText, currentTags)
-                            // TODO: update state
+                            let newId = vm.saveNote(noteId: currentNoteId, data: currentText, tags: currentTags)
+                            if let newId = newId, let note = vm.searchByID(newId) {
+                                setReadMode(notes: [note])
+                            }
                         } label: {
                             Label {
                                 Text("Add Note")
@@ -109,6 +112,24 @@ struct MainView: View {
             }
         }
         .preferredColorScheme(.light)
+    }
+    
+    private func setEditMode(noteId: Int64? = nil, text: String = "", tags: String = "") {
+        self.currentText = text
+        self.currentTags = tags
+        self.currentNoteId = noteId
+        self.notes = []
+        self.currentTag = ""
+        self.editorMode = .edit
+    }
+    
+    private func setReadMode(notes: [Note], tag: String = "") {
+        self.currentText = ""
+        self.currentTags = ""
+        self.currentNoteId = nil
+        self.notes = notes
+        self.currentTag = tag
+        self.editorMode = .read
     }
 }
 

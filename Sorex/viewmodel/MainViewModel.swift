@@ -77,8 +77,18 @@ class MainViewModel: ObservableObject {
         return db.getNotes()
     }
     
+    func searchByID(_ noteId: Int64) -> Note? {
+        return db.searchByID(noteId)
+    }
+    
     func searchByTag(_ tag: String) -> [Note] {
+        guard !tag.isEmpty else {return []}
         return db.searchByTag(tag)
+    }
+    
+    func searchByKeyword(_ word: String) -> [Note] {
+        guard !word.isEmpty else {return []}
+        return db.searchByKeyword(word)
     }
     
     func deleteNoteById(_ noteId: Int64) {
@@ -87,22 +97,24 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    func saveNote(_ data: String, _ tags: String) {
+    func saveNote(noteId: Int64?, data: String, tags: String) -> Int64? {
         // TODO: check DB connection
         
         let tagsArray = tags.components(separatedBy: ",").filter {!$0.isEmpty}
         print(tags)
         
-        guard !data.isEmpty else {return}
+        guard !data.isEmpty else {return nil}
         guard !tagsArray.isEmpty else {
             Utils.showWarning("Tag required", "Please add at least 1 tag\ne.g. \"Work\" or \"TODO\"")
-            return
+            return nil
         }
         
         // TODO: insert vs edit
         let newNoteId = db.insertNote(data)
         db.linkTagsToNote(newNoteId, tagsArray)
         Utils.showInfo("Done", "Note added")
+        
+        return newNoteId
     }
     
     private func addToRecentFilesList(_ item: String) {
