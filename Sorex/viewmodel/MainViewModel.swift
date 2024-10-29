@@ -97,24 +97,41 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    func saveNote(noteId: Int64?, data: String, tags: String) -> Int64? {
+    func saveNote(_ noteId: Int64?, data: String, newTags: String, oldTags: String) -> Int64? {
         // TODO: check DB connection
         
-        let tagsArray = tags.components(separatedBy: ",").filter {!$0.isEmpty}
+        let tags = Utils.splitStringBy(newTags, ",")
         print(tags)
         
         guard !data.isEmpty else {return nil}
-        guard !tagsArray.isEmpty else {
+        guard !tags.isEmpty else {
             Utils.showWarning("Tag required", "Please add at least 1 tag\ne.g. \"Work\" or \"TODO\"")
             return nil
         }
         
-        // TODO: insert vs edit
-        let newNoteId = db.insertNote(data)
-        db.linkTagsToNote(newNoteId, tagsArray)
-        Utils.showInfo("Done", "Note added")
+        if let noteId = noteId {
+            // UPDATE
+            db.updateNote(noteId, data)
+            updateTags(noteId, newTags: newTags, oldTags: oldTags)
+            Utils.showInfo("Done", "Note updated")
+            return noteId
+        } else {
+            // INSERT
+            let newNoteId = db.insertNote(data)
+            db.linkTagsToNote(newNoteId, tags)
+            Utils.showInfo("Done", "Note added")
+            return newNoteId
+        }
+    }
+    
+    private func updateTags(_ noteId: Int64, newTags: String, oldTags: String) {
+        let oldTags = Set(Utils.splitStringBy(oldTags, ","))
+        let newTags = Set(Utils.splitStringBy(newTags, ","))
+        let rmTags  = Array(oldTags.subtracting(newTags))
+        let addTags = Array(newTags.subtracting(oldTags))
         
-        return newNoteId
+        db.unlinkTagsFromNote(noteId, rmTags)
+        db.linkTagsToNote(noteId, addTags)
     }
     
     private func addToRecentFilesList(_ item: String) {

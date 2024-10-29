@@ -11,6 +11,7 @@ struct MainView: View {
     @State private var notes: [Note] = []            // in view mode, DB notes array for markdown view
     @State private var currentTag = ""               // after note deletion we should update view w/o the removed note
     @State private var editorMode = EditorMode.edit  // edit or view mode
+    @State private var oldTags = ""                  // old comma-separated tags for edit mode (to calc tags diff)
     
     var body: some View {
         NavigationSplitView {
@@ -62,7 +63,8 @@ struct MainView: View {
                             ZStack(alignment: .topTrailing) {
                                 MarkdownView(text: note.data)
                                     .textSelection(.enabled)
-                                ContextMenu(tags: note.tags.components(separatedBy: ","), onEdit: {
+                                ContextMenu(tags: Utils.splitStringBy(note.tags, ","),
+                                  onEdit: {
                                     setEditMode(noteId: note.id, text: note.data, tags: note.tags)
                                 }, onDelete: {
                                     vm.deleteNoteById(note.id)
@@ -88,20 +90,20 @@ struct MainView: View {
                     }
                     Spacer()
                     HStack {
-                        TextField("Tags...", text: $currentTags)
+                        TextField("Tags...", text: $currentTags) // TODO: bug
                             .frame(maxWidth: 200)
                             .cornerRadius(16)
                         
                         Button {
-                            let newId = vm.saveNote(noteId: currentNoteId, data: currentText, tags: currentTags)
+                            let newId = vm.saveNote(currentNoteId, data: currentText, newTags: currentTags, oldTags: oldTags)
                             if let newId = newId, let note = vm.searchByID(newId) {
                                 setReadMode(notes: [note])
                             }
                         } label: {
                             Label {
-                                Text("Add Note")
+                                Text(currentNoteId == nil ? "Add Note" : "Update Note")
                             } icon: {
-                                Image(systemName: "plus.bubble.fill")
+                                Image(systemName: currentNoteId == nil ? "plus.circle" : "checkmark.seal")
                             }
                             .foregroundColor(.black.opacity(0.8))
                         }
@@ -121,6 +123,7 @@ struct MainView: View {
         self.notes = []
         self.currentTag = ""
         self.editorMode = .edit
+        self.oldTags = tags
     }
     
     private func setReadMode(notes: [Note], tag: String = "") {
@@ -130,6 +133,7 @@ struct MainView: View {
         self.notes = notes
         self.currentTag = tag
         self.editorMode = .read
+        self.oldTags = ""
     }
 }
 

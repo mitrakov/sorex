@@ -38,4 +38,8 @@ open class Utils {
         
         return alert.runModal().rawValue == 1000 // 1000 = Yes
     }
+    
+    static func splitStringBy(_ s: String, _ separator: String) -> [String] {
+        s.components(separatedBy: separator).map {$0.trimmingCharacters(in: .whitespaces)}.filter {!$0.isEmpty}
+    }
 }
