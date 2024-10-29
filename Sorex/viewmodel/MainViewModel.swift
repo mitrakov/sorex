@@ -2,8 +2,8 @@ import AppKit
 import UniformTypeIdentifiers
 
 class MainViewModel: ObservableObject {
-    let db = SQLiteDatabase()
-    let dbUiType = UTType(filenameExtension: "db")!
+    private let db = SQLiteDatabase()
+    private let dbUiType = UTType(filenameExtension: "db")!
     @Published private var currentPath: String? // for updating parent Views
     
     func openFile(_ path: String) {
@@ -81,8 +81,28 @@ class MainViewModel: ObservableObject {
         return db.searchByTag(tag)
     }
     
-    func removeNoteById(_ noteId: Int64) {
-        db.deleteNote(noteId)
+    func deleteNoteById(_ noteId: Int64) {
+        if Utils.showYesNoDialog("Delete note", "Are you sure you want to delete this note?") {
+            db.deleteNote(noteId)
+        }
+    }
+    
+    func saveNote(_ data: String, _ tags: String) {
+        // TODO: check DB connection
+        
+        let tagsArray = tags.components(separatedBy: ",").filter {!$0.isEmpty}
+        print(tags)
+        
+        guard !data.isEmpty else {return}
+        guard !tagsArray.isEmpty else {
+            Utils.showWarning("Tag required", "Please add at least 1 tag\ne.g. \"Work\" or \"TODO\"")
+            return
+        }
+        
+        // TODO: insert vs edit
+        let newNoteId = db.insertNote(data)
+        db.linkTagsToNote(newNoteId, tagsArray)
+        Utils.showInfo("Done", "Note added")
     }
     
     private func addToRecentFilesList(_ item: String) {

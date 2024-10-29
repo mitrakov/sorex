@@ -64,8 +64,8 @@ struct MainView: View {
                                 MarkdownView(text: note.data)
                                     .textSelection(.enabled)
                                 ContextMenu(tags: note.tags.components(separatedBy: ","), onEdit: {}, onDelete: {
-                                    deleteNoteById(note.id)
-                                    notes = vm.searchByTag(currentTag)
+                                    vm.deleteNoteById(note.id)
+                                    notes = vm.searchByTag(currentTag) // update view
                                 })
                             }
                             Divider()
@@ -92,7 +92,8 @@ struct MainView: View {
                             .cornerRadius(16)
                         
                         Button {
-                            // not impl
+                            vm.saveNote(currentText, currentTags)
+                            // TODO: update state
                         } label: {
                             Label {
                                 Text("Add Note")
@@ -108,20 +109,6 @@ struct MainView: View {
             }
         }
         .preferredColorScheme(.light)
-    }
-    
-    func deleteNoteById(_ noteId: Int64) {
-        let alert = NSAlert()
-        alert.messageText = "Delete note"
-        alert.informativeText = "Are you sure you want to delete this note?"
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: "Yes")
-        alert.addButton(withTitle: "No")
-        let result = alert.runModal()
-        
-        if result.rawValue == 1000 {
-            vm.removeNoteById(noteId)
-        }
     }
 }
 
