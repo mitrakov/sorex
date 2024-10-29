@@ -9,14 +9,15 @@ struct MainView: View {
     @State private var currentTags = ""              // comma-separated tags in the text field (insert/update note)
     @State private var currentNoteId: Int64?         // if present, it's an ID of the note in edit mode
     @State private var notes: [Note] = []            // in view mode, DB notes array for markdown view
-    @State private var currentTag = ""               // after note deletion we should update view w/o the removed note
+    @State private var searchTag = ""                // after note deletion we should update view w/o the removed note
+    @State private var searchKeyword = ""            // keyword for full-text search feature
     @State private var editorMode = EditorMode.edit  // edit or view mode
     @State private var oldTags = ""                  // old comma-separated tags for edit mode (to calc tags diff)
     
     var body: some View {
         NavigationSplitView {
             VStack {
-                HStack {
+                HStack(alignment: .top) {
                     Button {
                         setEditMode()
                     } label: {
@@ -37,7 +38,9 @@ struct MainView: View {
                     .padding(.leading, 8)
                     .buttonStyle(PlainButtonStyle())
                     
-                    Spacer()
+                    TextField("Global search...", text: $searchKeyword)
+                        .cornerRadius(16)
+                        .padding(4)
                 }
                 ScrollView {
                     ForEach(vm.getTags(), id: \.self) { tag in
@@ -68,7 +71,7 @@ struct MainView: View {
                                     setEditMode(noteId: note.id, text: note.data, tags: note.tags)
                                 }, onDelete: {
                                     vm.deleteNoteById(note.id)
-                                    setReadMode(notes: vm.searchByTag(currentTag), tag: currentTag)
+                                    setReadMode(notes: vm.searchByTag(searchTag), tag: searchTag)
                                 })
                             }
                             Divider()
@@ -121,7 +124,7 @@ struct MainView: View {
         self.currentTags = tags
         self.currentNoteId = noteId
         self.notes = []
-        self.currentTag = ""
+        self.searchTag = ""
         self.editorMode = .edit
         self.oldTags = tags
     }
@@ -131,7 +134,7 @@ struct MainView: View {
         self.currentTags = ""
         self.currentNoteId = nil
         self.notes = notes
-        self.currentTag = tag
+        self.searchTag = tag
         self.editorMode = .read
         self.oldTags = ""
     }
