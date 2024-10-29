@@ -5,10 +5,11 @@ import MarkdownView
 // bug with overwriting same file
 struct MainView: View {
     @ObservedObject var vm: MainViewModel
-    @State private var currentText = ""
-    @State private var currentTags = ""
-    @State private var notes: [Note] = []
-    @State private var editorMode = EditorMode.edit
+    @State private var currentText = ""              // main text in add/edit mode
+    @State private var currentTags = ""              // comma-separated tags in the text field at the bottom
+    @State private var currentTag = ""               // last searched tag
+    @State private var notes: [Note] = []            // DB notes array for markdown view
+    @State private var editorMode = EditorMode.edit  // edit or view
     
     var body: some View {
         NavigationSplitView {
@@ -43,6 +44,7 @@ struct MainView: View {
                             Button {
                                 editorMode = .read
                                 notes = vm.searchByTag(tag)
+                                currentTag = tag
                             } label: {
                                 Text(tag)
                             }
@@ -61,7 +63,10 @@ struct MainView: View {
                             ZStack(alignment: .topTrailing) {
                                 MarkdownView(text: note.data)
                                     .textSelection(.enabled)
-                                ContextMenu(tags: note.tags.components(separatedBy: ","), onEdit: {}, onDelete: {})
+                                ContextMenu(tags: note.tags.components(separatedBy: ","), onEdit: {}, onDelete: {
+                                    deleteNoteById(note.id)
+                                    notes = vm.searchByTag(currentTag)
+                                })
                             }
                             Divider()
                         }
@@ -103,6 +108,20 @@ struct MainView: View {
             }
         }
         .preferredColorScheme(.light)
+    }
+    
+    func deleteNoteById(_ noteId: Int64) {
+        let alert = NSAlert()
+        alert.messageText = "Delete note"
+        alert.informativeText = "Are you sure you want to delete this note?"
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Yes")
+        alert.addButton(withTitle: "No")
+        let result = alert.runModal()
+        
+        if result.rawValue == 1000 {
+            vm.removeNoteById(noteId)
+        }
     }
 }
 

@@ -81,6 +81,10 @@ class MainViewModel: ObservableObject {
         return db.searchByTag(tag)
     }
     
+    func removeNoteById(_ noteId: Int64) {
+        db.deleteNote(noteId)
+    }
+    
     private func addToRecentFilesList(_ item: String) {
         UserDefaults.standard.set([item] + getRecentFiles().filter {$0 != item}, forKey: recentFilesKey)
     }
