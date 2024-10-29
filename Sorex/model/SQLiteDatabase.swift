@@ -114,7 +114,9 @@ class SQLiteDatabase {
           INNER JOIN notedata ON note_id = notedata.rowid
           INNER JOIN note_to_tag USING (note_id)
           INNER JOIN tag         USING (tag_id)
-          GROUP BY note_id;
+          GROUP BY note_id
+          ORDER BY note_id ASC
+          ;
         """
         do {
             return try db?.run(sql).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String)} ?? []
@@ -167,8 +169,8 @@ class SQLiteDatabase {
           INNER JOIN tag         USING (tag_id)
           WHERE note_id IN (SELECT note_id FROM tag INNER JOIN note_to_tag USING (tag_id) WHERE name = ?)
           GROUP BY note_id
-          ORDER BY note_to_tag.updated_at DESC
-         ;
+          ORDER BY note.updated_at DESC
+          ;
         """
         do {
             return try db?.run(sql, tag).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String)} ?? []
@@ -192,7 +194,7 @@ class SQLiteDatabase {
           INNER JOIN tag         USING (tag_id)
           WHERE data MATCH ?
           GROUP BY note_id
-          ORDER BY notedata.rank, note.updated_at
+          ORDER BY notedata.rank ASC, note.updated_at DESC
           ;
         """
         do {
