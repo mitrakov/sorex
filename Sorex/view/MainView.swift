@@ -69,23 +69,27 @@ struct MainView: View {
                     switch editorMode {
                     case .read:
                         ScrollView {
-                            ForEach(notes) { note in
-                                ZStack(alignment: .topTrailing) {
-                                    HStack {
-                                        MarkdownView(text: note.data)
-                                            .textSelection(.enabled)
-                                        Spacer()
+                            if vm.currentPath != nil {
+                                ForEach(notes) { note in
+                                    ZStack(alignment: .topTrailing) {
+                                        HStack {
+                                            MarkdownView(text: note.data)
+                                                .textSelection(.enabled)
+                                            Spacer()
+                                        }
+                                        
+                                        ContextMenu(tags: Utils.splitStringBy(note.tags, ","),
+                                          onEdit: {
+                                            setEditMode(noteId: note.id, text: note.data, tags: note.tags)
+                                        }, onDelete: {
+                                            vm.deleteNoteById(note.id)
+                                            setReadMode(search: search, by: searchMode)
+                                        })
                                     }
-                                    
-                                    ContextMenu(tags: Utils.splitStringBy(note.tags, ","),
-                                      onEdit: {
-                                        setEditMode(noteId: note.id, text: note.data, tags: note.tags)
-                                    }, onDelete: {
-                                        vm.deleteNoteById(note.id)
-                                        setReadMode(search: search, by: searchMode)
-                                    })
+                                    Divider()
                                 }
-                                Divider()
+                            } else {
+                                EmptyView()
                             }
                         }
                         .padding(4)
