@@ -11,7 +11,7 @@ struct MainView: View {
     @State private var notes: [Note] = []            // in view mode, DB notes array for markdown view
     @State private var search = ""                   // name of tag (SearchMode.tag) or keyword (SearchMode.keyword)
     @State private var editorMode = EditorMode.edit  // edit or view mode
-    @State private var searchMode = SearchMode.tag   // how to search notes (by clicking tag, by full-text, etc)    
+    @State private var searchMode = SearchMode.tag   // how to search notes (by clicking tag, by full-text, etc)
     
     var body: some View {
         HSplitView { // don't use NavigationSplitView because of the bug in SwiftUI (https://stackoverflow.com/q/74585499)
@@ -97,7 +97,7 @@ struct MainView: View {
                         }
                         Spacer()
                         HStack {
-                            TextField("Tags...", text: $currentTags) // TODO: bug
+                            TextField("Tags...", text: $currentTags)
                                 .frame(maxWidth: 200)
                                 .cornerRadius(16)
                             

@@ -104,7 +104,7 @@ class SQLiteDatabase {
     func deleteNote(_ noteId: Int64) {
         do {
             try db?.transaction {
-                try db?.run("DELETE FROM note     WHERE note_id = ?;", noteId); // TODO soft delete?
+                try db?.run("DELETE FROM note     WHERE note_id = ?;", noteId);
                 try db?.run("DELETE FROM notedata WHERE rowid = ?;", noteId);
                 try db?.run("DELETE FROM tag      WHERE tag_id NOT IN (SELECT DISTINCT tag_id FROM note_to_tag);");
             }
@@ -245,7 +245,7 @@ class SQLiteDatabase {
         let IN = [String](repeating: "?", count: tags.count).joined(separator: ",") // "?,?,?,?"
         do {
             try db?.transaction {
-                try db?.run("DELETE FROM note_to_tag WHERE note_id = ? AND tag_id IN (SELECT tag_id FROM tag WHERE name IN (\(IN)));", [noteId] + tags); // TODO soft delete?
+                try db?.run("DELETE FROM note_to_tag WHERE note_id = ? AND tag_id IN (SELECT tag_id FROM tag WHERE name IN (\(IN)));", [noteId] + tags);
                 try db?.run("DELETE FROM tag WHERE tag_id NOT IN (SELECT DISTINCT tag_id FROM note_to_tag);");
             }
         } catch {print(error)}
