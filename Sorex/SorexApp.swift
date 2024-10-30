@@ -13,14 +13,31 @@ struct sorexApp: App {
             MainView(vm: vm)
         }
         .commands {
-            CommandGroup(replacing: .systemServices) {} // remove std group from main menu
-            CommandGroup(replacing: .appVisibility) {} // remove std group from main menu
-            CommandMenu("Filе") {
+            Group {
+                CommandGroup(replacing: .appSettings) {}
+                CommandGroup(replacing: .systemServices) {}
+                CommandGroup(replacing: .appVisibility) {}
+                CommandGroup(replacing: .saveItem) {}
+                CommandGroup(replacing: .importExport) {}
+                CommandGroup(replacing: .printItem) {}
+                CommandGroup(replacing: .textEditing) {}
+            }
+            Group {
+                CommandGroup(replacing: .toolbar) {}
+                CommandGroup(replacing: .sidebar) {}
+                CommandGroup(replacing: .windowSize) {}
+                CommandGroup(replacing: .windowList) {}
+                CommandGroup(replacing: .singleWindowList) {}
+                CommandGroup(replacing: .windowArrangement) {}
+                CommandGroup(replacing: .help) {}              // rm Help -> sorexHelp
+            }
+            CommandGroup(replacing: .newItem) {
                 Menu("Open Recent") {
                     ForEach(recentFiles, id: \.self) { path in
                         Button(path) {
                             vm.openFile(path)
                             recentFiles = vm.getRecentFiles() // update the menu
+                            AppDelegate.removeViewWindowHelpMenu()
                         }
                     }
                 }
@@ -31,14 +48,11 @@ struct sorexApp: App {
                 Button("Open...") {
                     vm.openFile()
                     recentFiles = vm.getRecentFiles() // update the menu
+                    AppDelegate.removeViewWindowHelpMenu()
                 }
                 Divider()
                 Button("Close File") {
                     vm.closeFile()
-                }
-                Divider()
-                Button("DEBUG (rm recentFiles)") {
-                    vm._debug()
                 }
             }
         }
@@ -47,10 +61,12 @@ struct sorexApp: App {
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
+        AppDelegate.removeViewWindowHelpMenu()
+    }
+    
+    static func removeViewWindowHelpMenu() {
         DispatchQueue.main.async {
             if let menu = NSApplication.shared.mainMenu {
-                menu.items.removeAll{ $0.title == "File" }
-                //menu.items.removeAll{ $0.title == "Edit" } TODO: emojis
                 menu.items.removeAll{ $0.title == "View" }
                 menu.items.removeAll{ $0.title == "Window" }
                 menu.items.removeAll{ $0.title == "Help" }

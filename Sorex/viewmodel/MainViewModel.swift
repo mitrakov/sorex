@@ -141,8 +141,4 @@ class MainViewModel: ObservableObject {
     private func removeFromRecentFilesList(_ item: String) {
         UserDefaults.standard.set(getRecentFiles().filter {$0 != item}, forKey: recentFilesKey)
     }
-    
-    func _debug() {
-        UserDefaults.standard.removeObject(forKey: recentFilesKey)
-    }
 }
