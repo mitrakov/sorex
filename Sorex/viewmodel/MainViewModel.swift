@@ -70,39 +70,42 @@ class MainViewModel: ObservableObject {
     }
     
     func getTags() -> [String] {
+        guard db.isConnected() else {return []}
         return db.getTags()
     }
     
     func getNotes() -> [Note] {
+        guard db.isConnected() else {return []}
         return db.getNotes()
     }
     
     func searchByID(_ noteId: Int64) -> Note? {
+        guard db.isConnected() else {return nil}
         return db.searchByID(noteId)
     }
     
     func searchByTag(_ tag: String) -> [Note] {
         guard !tag.isEmpty else {return []}
+        guard db.isConnected() else {return []}
         return db.searchByTag(tag)
     }
     
     func searchByKeyword(_ word: String) -> [Note] {
         guard !word.isEmpty else {return []}
+        guard db.isConnected() else {return []}
         return db.searchByKeyword(word)
     }
     
     func deleteNoteById(_ noteId: Int64) {
+        guard db.isConnected() else {return}
         if Utils.showYesNoDialog("Delete note", "Are you sure you want to delete this note?") {
             db.deleteNote(noteId)
         }
     }
     
     func saveNote(_ noteId: Int64?, data: String, newTags: String, oldTags: String) -> Int64? {
-        // TODO: check DB connection
-        
         let tags = Utils.splitStringBy(newTags, ",")
-        print(tags)
-        
+        guard db.isConnected() else {return nil}
         guard !data.isEmpty else {return nil}
         guard !tags.isEmpty else {
             Utils.showWarning("Tag required", "Please add at least 1 tag\ne.g. \"Work\" or \"TODO\"")

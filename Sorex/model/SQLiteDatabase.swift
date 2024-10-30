@@ -19,6 +19,12 @@ class SQLiteDatabase {
         db = nil // internal DB connection will be closed by deinit()
     }
     
+    /// Checks if a DB is open
+    /// - Returns: true if DB is connected
+    func isConnected() -> Bool {
+        return db != nil
+    }
+    
     /// Creates a new database
     /// - Parameters:
     ///   - path: The location of the database
