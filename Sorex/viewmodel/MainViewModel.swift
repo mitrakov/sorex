@@ -3,7 +3,7 @@ import Foundation
 class MainViewModel: ObservableObject {
     private let db = SQLiteDatabase()
     private let files = FileManager.default
-    @Published private var currentPath: String? // for updating parent Views
+    @Published var currentPath: String?
     
     func openFile(_ path: String) {
         if files.fileExists(atPath: path) {

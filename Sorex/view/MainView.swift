@@ -15,6 +15,7 @@ struct MainView: View {
     
     var body: some View {
         HSplitView { // don't use NavigationSplitView because of the bug in SwiftUI (https://stackoverflow.com/q/74585499)
+            // LEFT TOOLBAR
             VStack {
                 HStack(alignment: .top) {
                     Button {
@@ -34,12 +35,13 @@ struct MainView: View {
                                 .foregroundColor(.black)
                         }
                     }
-                    .padding(.leading, 8)
+                    .padding(10)
                     .buttonStyle(PlainButtonStyle())
                     
                     TextField("Global search...", text: $searchKeyword)
-                        .cornerRadius(16)
-                        .padding(4)
+                        .cornerRadius(8)
+                        .padding(.top, 16)
+                        .padding(.trailing, 8)
                         .onSubmit {
                             setReadMode(search: searchKeyword, by: .keyword)
                         }
@@ -60,6 +62,7 @@ struct MainView: View {
                 }
             }.frame(maxWidth: 200)
 
+            // RIGHT MAIN AREA
             HStack {
                 Spacer()
                 VStack {
@@ -68,8 +71,12 @@ struct MainView: View {
                         ScrollView {
                             ForEach(notes) { note in
                                 ZStack(alignment: .topTrailing) {
-                                    MarkdownView(text: note.data)
-                                        .textSelection(.enabled)
+                                    HStack {
+                                        MarkdownView(text: note.data)
+                                            .textSelection(.enabled)
+                                        Spacer()
+                                    }
+                                    
                                     ContextMenu(tags: Utils.splitStringBy(note.tags, ","),
                                       onEdit: {
                                         setEditMode(noteId: note.id, text: note.data, tags: note.tags)
@@ -85,21 +92,25 @@ struct MainView: View {
                     case .edit:
                         HSplitView {
                             TextEditor(text: $currentText)
-                                .font(.custom("HelveticaNeue", size: 14))
+                                .font(.system(size: 14, weight: .regular, design: .monospaced))
                                 .foregroundColor(.black)
                                 .padding(4)
 
                             ScrollView {
-                                MarkdownView(text: currentText)
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                HStack {
+                                    MarkdownView(text: currentText)
+                                        .textSelection(.enabled)
+                                    Spacer()
+                                }
                             }
                             .padding(4)
                         }
                         Spacer()
                         HStack {
+                            Text("Tags:")
                             TextField("Tags...", text: $currentTags)
                                 .frame(maxWidth: 200)
-                                .cornerRadius(16)
+                                .cornerRadius(8)
                             
                             Button {
                                 let newId = vm.saveNote(currentNoteId, data: currentText, newTags: currentTags, oldTags: oldTags)
@@ -109,8 +120,10 @@ struct MainView: View {
                             } label: {
                                 Label {
                                     Text(currentNoteId == nil ? "Add Note" : "Update Note")
+                                        .font(.system(size: 13, weight: .semibold))
                                 } icon: {
                                     Image(systemName: currentNoteId == nil ? "plus.circle" : "checkmark.seal")
+                                        .font(.system(size: 15, weight: .semibold))
                                 }
                                 .foregroundColor(.black.opacity(0.8))
                             }
@@ -122,6 +135,7 @@ struct MainView: View {
             }
         }
         .preferredColorScheme(.light)
+        .navigationTitle(vm.currentPath ?? "Sorex App")
     }
     
     private func setEditMode(noteId: Int64? = nil, text: String = "", tags: String = "") {
