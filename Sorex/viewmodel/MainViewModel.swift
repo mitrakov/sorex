@@ -1,9 +1,7 @@
-import AppKit
-import UniformTypeIdentifiers
+import Foundation
 
 class MainViewModel: ObservableObject {
     private let db = SQLiteDatabase()
-    private let dbUiType = UTType(filenameExtension: "db")!
     private let files = FileManager.default
     @Published private var currentPath: String? // for updating parent Views
     
@@ -14,46 +12,19 @@ class MainViewModel: ObservableObject {
             currentPath = path
             addToRecentFilesList(path)
         } else {
-            print("File not found: \(path)")
+            Utils.showAlert("Error", "File not found:\n\(path)", .critical)
             removeFromRecentFilesList(path)
-            
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.informativeText = "File not found:\n\(path)"
-            alert.alertStyle = .critical
-            alert.addButton(withTitle: "OK")
-            alert.runModal()
         }
     }
     
     func openFile() {
-        let p = NSOpenPanel() // don't use .fileImporter here because of lack of settings
-        p.allowedContentTypes = [dbUiType]
-        p.allowsMultipleSelection = false
-        p.canChooseFiles = true
-        p.canChooseDirectories = false
-        p.isExtensionHidden = false
-        p.allowsOtherFileTypes = false
-        p.message = "Select a DB file"
-        
-        if let path = p.runModal() == .OK ? p.url?.path(percentEncoded: false) : nil { // "percentEncoded: false" allows diacriticals
+        if let path = Utils.showOpenFileDialog("Select a DB file", ["db"]) {
             self.openFile(path)
         }
     }
     
     func newFile() {
-        let p = NSSavePanel() // don't use fileExporter here because of lack of settings
-        p.allowedContentTypes = [dbUiType]
-        p.canCreateDirectories = true
-        p.isExtensionHidden = false
-        p.allowsOtherFileTypes = false
-        p.showsTagField = false
-        p.title = "New DB file"
-        p.message = "Create a new DB file"
-        p.nameFieldLabel = "DB name:"
-        p.nameFieldStringValue = "mydb"
-        
-        if let path = p.runModal() == .OK ? p.url?.path(percentEncoded: false) : nil { // "percentEncoded: false" allows diacriticals
+        if let path = Utils.showSaveFileDialog(title: "New DB file", message: "Create a new DB file", nameLabel: "DB name", defaultName: "mydb", ["db"]) {
             if files.fileExists(atPath: path) {
                 if Utils.showYesNoDialog("Warning", "File already exists:\n\(path)\n\nDo you want to erase it?\nIt will remove all data") {
                     db.closeDb()
