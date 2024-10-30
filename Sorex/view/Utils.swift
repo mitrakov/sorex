@@ -1,29 +1,11 @@
 import AppKit
 
 open class Utils {
-    static func showInfo(_ title: String, _ text: String) {
+    static func showAlert(_ title: String, _ text: String, _ style: NSAlert.Style = .informational) {
         let alert = NSAlert()
         alert.messageText = title
         alert.informativeText = text
-        alert.alertStyle = .informational
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
-    }
-    
-    static func showWarning(_ title: String, _ text: String) {
-        let alert = NSAlert()
-        alert.messageText = title
-        alert.informativeText = text
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
-    }
-    
-    static func showError(_ title: String, _ text: String) {
-        let alert = NSAlert()
-        alert.messageText = title
-        alert.informativeText = text
-        alert.alertStyle = .critical
+        alert.alertStyle = style
         alert.addButton(withTitle: "OK")
         alert.runModal()
     }

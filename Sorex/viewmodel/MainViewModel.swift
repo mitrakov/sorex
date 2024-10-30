@@ -118,7 +118,7 @@ class MainViewModel: ObservableObject {
         guard db.isConnected() else {return nil}
         guard !data.isEmpty else {return nil}
         guard !tags.isEmpty else {
-            Utils.showWarning("Tag required", "Please add at least 1 tag\ne.g. \"Work\" or \"TODO\"")
+            Utils.showAlert("Tag required", "Please add at least 1 tag\ne.g. \"Work\" or \"TODO\"", .warning)
             return nil
         }
         
@@ -126,13 +126,13 @@ class MainViewModel: ObservableObject {
             // UPDATE
             db.updateNote(noteId, data)
             updateTags(noteId, newTags: newTags, oldTags: oldTags)
-            Utils.showInfo("Done", "Note updated")
+            Utils.showAlert("Done", "Note updated")
             return noteId
         } else {
             // INSERT
             let newNoteId = db.insertNote(data)
             db.linkTagsToNote(newNoteId, tags)
-            Utils.showInfo("Done", "Note added")
+            Utils.showAlert("Done", "Note added")
             return newNoteId
         }
     }
