@@ -17,7 +17,7 @@ struct MainView: View {
     
     
     var body: some View {
-        NavigationSplitView {
+        HSplitView { // don't use NavigationSplitView because of the bug in SwiftUI (https://stackoverflow.com/q/74585499)
             VStack {
                 HStack(alignment: .top) {
                     Button {
@@ -61,63 +61,66 @@ struct MainView: View {
                         }
                     }
                 }
-            }
-        } detail: {
-            VStack {
-                switch editorMode {
-                case .read:
-                    ScrollView {
-                        ForEach(notes) { note in
-                            ZStack(alignment: .topTrailing) {
-                                MarkdownView(text: note.data)
-                                    .textSelection(.enabled)
-                                ContextMenu(tags: Utils.splitStringBy(note.tags, ","),
-                                  onEdit: {
-                                    setEditMode(noteId: note.id, text: note.data, tags: note.tags)
-                                }, onDelete: {
-                                    vm.deleteNoteById(note.id)
-                                    setReadMode(search: search, by: searchMode)
-                                })
-                            }
-                            Divider()
-                        }
-                    }
-                    .padding(4)
-                case .edit:
-                    HSplitView {
-                        TextEditor(text: $currentText)
-                            .font(.custom("HelveticaNeue", size: 14))
-                            .foregroundColor(.black)
-                            .padding(4)
+            }.frame(maxWidth: 200)
 
+            HStack {
+                Spacer()
+                VStack {
+                    switch editorMode {
+                    case .read:
                         ScrollView {
-                            MarkdownView(text: currentText)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            ForEach(notes) { note in
+                                ZStack(alignment: .topTrailing) {
+                                    MarkdownView(text: note.data)
+                                        .textSelection(.enabled)
+                                    ContextMenu(tags: Utils.splitStringBy(note.tags, ","),
+                                      onEdit: {
+                                        setEditMode(noteId: note.id, text: note.data, tags: note.tags)
+                                    }, onDelete: {
+                                        vm.deleteNoteById(note.id)
+                                        setReadMode(search: search, by: searchMode)
+                                    })
+                                }
+                                Divider()
+                            }
                         }
                         .padding(4)
-                    }
-                    Spacer()
-                    HStack {
-                        TextField("Tags...", text: $currentTags) // TODO: bug
-                            .frame(maxWidth: 200)
-                            .cornerRadius(16)
-                        
-                        Button {
-                            let newId = vm.saveNote(currentNoteId, data: currentText, newTags: currentTags, oldTags: oldTags)
-                            if let newId = newId {
-                                setReadMode(search: String(newId), by: .id)
+                    case .edit:
+                        HSplitView {
+                            TextEditor(text: $currentText)
+                                .font(.custom("HelveticaNeue", size: 14))
+                                .foregroundColor(.black)
+                                .padding(4)
+
+                            ScrollView {
+                                MarkdownView(text: currentText)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                             }
-                        } label: {
-                            Label {
-                                Text(currentNoteId == nil ? "Add Note" : "Update Note")
-                            } icon: {
-                                Image(systemName: currentNoteId == nil ? "plus.circle" : "checkmark.seal")
-                            }
-                            .foregroundColor(.black.opacity(0.8))
+                            .padding(4)
                         }
-                        
                         Spacer()
-                    }.padding(.bottom, 10)
+                        HStack {
+                            TextField("Tags...", text: $currentTags) // TODO: bug
+                                .frame(maxWidth: 200)
+                                .cornerRadius(16)
+                            
+                            Button {
+                                let newId = vm.saveNote(currentNoteId, data: currentText, newTags: currentTags, oldTags: oldTags)
+                                if let newId = newId {
+                                    setReadMode(search: String(newId), by: .id)
+                                }
+                            } label: {
+                                Label {
+                                    Text(currentNoteId == nil ? "Add Note" : "Update Note")
+                                } icon: {
+                                    Image(systemName: currentNoteId == nil ? "plus.circle" : "checkmark.seal")
+                                }
+                                .foregroundColor(.black.opacity(0.8))
+                            }
+                            
+                            Spacer()
+                        }.padding(.bottom, 10)
+                    }
                 }
             }
         }
