@@ -25,19 +25,18 @@ struct sorexApp: App {
                     ForEach(recentFiles, id: \.self) { path in
                         Button(path) {
                             vm.openFile(path)
-                            recentFiles = vm.getRecentFiles() // update the menu
-                            AppDelegate.removeViewWindowHelpMenu()
+                            updateMenu()
                         }
                     }
                 }
                 Divider()
-                Button("New File") {
+                Button("New File...") {
                     vm.newFile()
+                    updateMenu()
                 }
                 Button("Open...") {
                     vm.openFile()
-                    recentFiles = vm.getRecentFiles() // update the menu
-                    AppDelegate.removeViewWindowHelpMenu()
+                    updateMenu()
                 }
                 Divider()
                 Button("Close File") {
@@ -45,6 +44,11 @@ struct sorexApp: App {
                 }
             }
         }
+    }
+    
+    private func updateMenu() {
+        recentFiles = vm.getRecentFiles()
+        AppDelegate.removeViewWindowHelpMenu()
     }
 }
 

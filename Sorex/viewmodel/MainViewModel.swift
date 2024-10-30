@@ -4,10 +4,11 @@ import UniformTypeIdentifiers
 class MainViewModel: ObservableObject {
     private let db = SQLiteDatabase()
     private let dbUiType = UTType(filenameExtension: "db")!
+    private let files = FileManager.default
     @Published private var currentPath: String? // for updating parent Views
     
     func openFile(_ path: String) {
-        if FileManager.default.fileExists(atPath: path) {
+        if files.fileExists(atPath: path) {
             print("Opening file \(path)")
             db.openDb(path)
             currentPath = path
@@ -53,10 +54,19 @@ class MainViewModel: ObservableObject {
         p.nameFieldStringValue = "mydb"
         
         if let path = p.runModal() == .OK ? p.url?.path(percentEncoded: false) : nil { // "percentEncoded: false" allows diacriticals
-            // TODO: bug table note already exists (code: 1) (when re-write the file)
+            if files.fileExists(atPath: path) {
+                if Utils.showYesNoDialog("Warning", "File already exists:\n\(path)\n\nDo you want to erase it?\nIt will remove all data") {
+                    db.closeDb()
+                    do {
+                        try files.removeItem(atPath: path)
+                    } catch {print(error)}
+                } else {return}
+            }
+            
             print("Creating file \(path)")
             db.createDb(path)
             currentPath = path
+            addToRecentFilesList(path)
         }
     }
     
