@@ -13,24 +13,13 @@ struct sorexApp: App {
             MainView(vm: vm)
         }
         .commands {
-            Group {
-                CommandGroup(replacing: .appSettings) {}
-                CommandGroup(replacing: .systemServices) {}
-                CommandGroup(replacing: .appVisibility) {}
-                CommandGroup(replacing: .saveItem) {}
-                CommandGroup(replacing: .importExport) {}
-                CommandGroup(replacing: .printItem) {}
-                CommandGroup(replacing: .textEditing) {}
-            }
-            Group {
-                CommandGroup(replacing: .toolbar) {}
-                CommandGroup(replacing: .sidebar) {}
-                CommandGroup(replacing: .windowSize) {}
-                CommandGroup(replacing: .windowList) {}
-                CommandGroup(replacing: .singleWindowList) {}
-                CommandGroup(replacing: .windowArrangement) {}
-                CommandGroup(replacing: .help) {}              // rm Help -> sorexHelp
-            }
+            CommandGroup(replacing: .systemServices) {} // rm "sorex  -> Services"
+            CommandGroup(replacing: .appVisibility) {}  // rm "sorex  -> Hide, Hide Others, Show All"
+            CommandGroup(replacing: .saveItem) {}       // rm "File   -> Close"
+            CommandGroup(replacing: .sidebar) {}        // rm "View   -> Enter Full Screen"
+            CommandGroup(replacing: .windowSize) {}     // rm "Window -> Minimize, Zoom"
+            CommandGroup(replacing: .windowList) {}     // rm "Window -> Bring All to Front"
+            CommandGroup(replacing: .help) {}           // rm "Help   -> App Help"
             CommandGroup(replacing: .newItem) {
                 Menu("Open Recent") {
                     ForEach(recentFiles, id: \.self) { path in
