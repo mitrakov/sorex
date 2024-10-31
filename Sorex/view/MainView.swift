@@ -36,6 +36,7 @@ struct MainView: View {
                         }
                     }
                     .padding(10)
+                    .disabled(vm.currentPath == nil)
                     .buttonStyle(PlainButtonStyle())
                     
                     TextField("Global search...", text: $searchKeyword)
@@ -131,6 +132,7 @@ struct MainView: View {
                                 }
                                 .foregroundColor(.black.opacity(0.8))
                             }
+                            .disabled(vm.currentPath == nil)
                             
                             Spacer()
                         }.padding(.bottom, 10)
