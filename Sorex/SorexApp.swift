@@ -2,12 +2,13 @@ import SwiftUI
 
 let recentFilesKey = "RECENT_FILES"
 
+// bug: performace of ScrollView
 @main
 struct sorexApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate // remove standard MacOS menu items (https://stackoverflow.com/a/70553784/2212849)
     private let vm = MainViewModel()
     @State private var recentFiles = UserDefaults.standard.stringArray(forKey: recentFilesKey) ?? [] // don't use @AppStorage because it cannot decode arrays
-    
+
     var body: some Scene {
         WindowGroup {
             MainView().environmentObject(vm)
@@ -45,7 +46,7 @@ struct sorexApp: App {
             }
         }
     }
-    
+
     private func updateMenu() {
         recentFiles = vm.getRecentFiles()
         AppDelegate.removeViewWindowHelpMenu()
@@ -56,7 +57,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         AppDelegate.removeViewWindowHelpMenu()
     }
-    
+
     static func removeViewWindowHelpMenu() {
         DispatchQueue.main.async {
             if let menu = NSApplication.shared.mainMenu {

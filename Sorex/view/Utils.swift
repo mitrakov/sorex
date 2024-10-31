@@ -32,7 +32,7 @@ open class Utils {
         p.allowsOtherFileTypes = false
         p.message = message
 
-        return p.runModal() == .OK ? p.url?.absoluteString : nil
+        return p.runModal() == .OK ? p.url?.path : nil
     }
     
     static func showSaveFileDialog(title: String, message: String, nameLabel: String, defaultName: String, _ allowedExtensions: [String]) -> String? {
@@ -47,7 +47,7 @@ open class Utils {
         p.nameFieldLabel = "\(nameLabel):"
         p.nameFieldStringValue = defaultName
         
-        return p.runModal() == .OK ? p.url?.absoluteString : nil
+        return p.runModal() == .OK ? p.url?.path : nil
     }
     
     static func splitStringBy(_ s: String, _ separator: String) -> [String] {
