@@ -96,11 +96,13 @@ struct MainView: View {
                         .padding(4)
                     case .edit:
                         HSplitView {
+                            // LEFT EDITOR
                             TextEditor(text: $currentText)
                                 .font(.system(size: 14, weight: .regular, design: .monospaced))
                                 .foregroundColor(.black)
                                 .padding(4)
 
+                            // RIGHT PREVIEW
                             ScrollView {
                                 HStack {
                                     MarkdownView(text: currentText)
@@ -111,6 +113,7 @@ struct MainView: View {
                             .padding(4)
                         }
                         Spacer()
+                        // BOTTOM PANEL
                         HStack {
                             Text("Tags:")
                             TextField("Tags...", text: $currentTags)
@@ -141,7 +144,7 @@ struct MainView: View {
             }
         }
         .preferredColorScheme(.light)
-        .navigationTitle(vm.currentPath ?? "Sorex App")
+        .navigationTitle(vm.currentPath ?? "Sorex")
     }
     
     private func saveNote() {

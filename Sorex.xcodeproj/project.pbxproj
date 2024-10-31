@@ -7,151 +7,255 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		652261A32CD0E17B00C0A47F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652261A22CD0E17B00C0A47F /* Utils.swift */; };
-		652AF3BC2CBE8F7000B0785E /* sorexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AF3BB2CBE8F7000B0785E /* sorexApp.swift */; };
-		652AF3BE2CBE8F7000B0785E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AF3BD2CBE8F7000B0785E /* MainView.swift */; };
-		652AF3C02CBE8F7300B0785E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 652AF3BF2CBE8F7300B0785E /* Assets.xcassets */; };
-		652AF3C32CBE8F7300B0785E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 652AF3C22CBE8F7300B0785E /* Preview Assets.xcassets */; };
-		652AF3CC2CBE8FD900B0785E /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = 652AF3CB2CBE8FD900B0785E /* MarkdownView */; };
-		652AF3CF2CBE900D00B0785E /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AF3CE2CBE900D00B0785E /* SQLiteDatabase.swift */; };
-		652AF3D22CBE902600B0785E /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 652AF3D12CBE902600B0785E /* SQLite */; };
-		65919AE52CCFF14500B2B300 /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65919AE42CCFF14500B2B300 /* ContextMenu.swift */; };
-		65E067C02CC29BFC000A8A70 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E067BF2CC29BFC000A8A70 /* Note.swift */; };
-		65FB6C2D2CC114CF0038D784 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FB6C2C2CC114CF0038D784 /* MainViewModel.swift */; };
+		65014A4B2CD3B58400C11F0C /* SorexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65014A4A2CD3B58400C11F0C /* SorexApp.swift */; };
+		65014A4F2CD3B58600C11F0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65014A4E2CD3B58600C11F0C /* Assets.xcassets */; };
+		65014A522CD3B58600C11F0C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65014A512CD3B58600C11F0C /* Preview Assets.xcassets */; };
+		65014A5D2CD3B58700C11F0C /* SorexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65014A5C2CD3B58700C11F0C /* SorexTests.swift */; };
+		65014A672CD3B58700C11F0C /* SorexUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65014A662CD3B58700C11F0C /* SorexUITests.swift */; };
+		65014A692CD3B58700C11F0C /* SorexUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65014A682CD3B58700C11F0C /* SorexUITestsLaunchTests.swift */; };
+		653558D42CD3B6820017288A /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558D22CD3B6820017288A /* SQLiteDatabase.swift */; };
+		653558D52CD3B6820017288A /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558D32CD3B6820017288A /* Note.swift */; };
+		653558DC2CD3B6930017288A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558D72CD3B6930017288A /* MainViewModel.swift */; };
+		653558DD2CD3B6930017288A /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558D92CD3B6930017288A /* ContextMenu.swift */; };
+		653558DE2CD3B6930017288A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558DA2CD3B6930017288A /* Utils.swift */; };
+		653558DF2CD3B6930017288A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558DB2CD3B6930017288A /* MainView.swift */; };
+		653558E22CD3B6B50017288A /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = 653558E12CD3B6B50017288A /* MarkdownView */; };
+		653558E52CD3B6C80017288A /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 653558E42CD3B6C80017288A /* SQLite */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		65014A592CD3B58700C11F0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65014A3F2CD3B58300C11F0C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65014A462CD3B58400C11F0C;
+			remoteInfo = Sorex;
+		};
+		65014A632CD3B58700C11F0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65014A3F2CD3B58300C11F0C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65014A462CD3B58400C11F0C;
+			remoteInfo = Sorex;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		652261A22CD0E17B00C0A47F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		652AF3B82CBE8F7000B0785E /* sorex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sorex.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		652AF3BB2CBE8F7000B0785E /* sorexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sorexApp.swift; sourceTree = "<group>"; };
-		652AF3BD2CBE8F7000B0785E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		652AF3BF2CBE8F7300B0785E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		652AF3C22CBE8F7300B0785E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		652AF3C42CBE8F7300B0785E /* sorex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = sorex.entitlements; sourceTree = "<group>"; };
-		652AF3CE2CBE900D00B0785E /* SQLiteDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
-		65919AE42CCFF14500B2B300 /* ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
-		65E067BF2CC29BFC000A8A70 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		65FB6C2C2CC114CF0038D784 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		65014A472CD3B58400C11F0C /* Sorex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sorex.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		65014A4A2CD3B58400C11F0C /* SorexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorexApp.swift; sourceTree = "<group>"; };
+		65014A4E2CD3B58600C11F0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		65014A512CD3B58600C11F0C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		65014A532CD3B58600C11F0C /* Sorex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sorex.entitlements; sourceTree = "<group>"; };
+		65014A582CD3B58700C11F0C /* SorexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SorexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		65014A5C2CD3B58700C11F0C /* SorexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorexTests.swift; sourceTree = "<group>"; };
+		65014A622CD3B58700C11F0C /* SorexUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SorexUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		65014A662CD3B58700C11F0C /* SorexUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorexUITests.swift; sourceTree = "<group>"; };
+		65014A682CD3B58700C11F0C /* SorexUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorexUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		653558D22CD3B6820017288A /* SQLiteDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
+		653558D32CD3B6820017288A /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		653558D72CD3B6930017288A /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		653558D92CD3B6930017288A /* ContextMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
+		653558DA2CD3B6930017288A /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		653558DB2CD3B6930017288A /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		652AF3B52CBE8F7000B0785E /* Frameworks */ = {
+		65014A442CD3B58400C11F0C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				652AF3D22CBE902600B0785E /* SQLite in Frameworks */,
-				652AF3CC2CBE8FD900B0785E /* MarkdownView in Frameworks */,
+				653558E52CD3B6C80017288A /* SQLite in Frameworks */,
+				653558E22CD3B6B50017288A /* MarkdownView in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65014A552CD3B58700C11F0C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65014A5F2CD3B58700C11F0C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		652AF3AF2CBE8F7000B0785E = {
+		65014A3E2CD3B58300C11F0C = {
 			isa = PBXGroup;
 			children = (
-				652AF3BA2CBE8F7000B0785E /* sorex */,
-				652AF3B92CBE8F7000B0785E /* Products */,
+				65014A492CD3B58400C11F0C /* Sorex */,
+				65014A5B2CD3B58700C11F0C /* SorexTests */,
+				65014A652CD3B58700C11F0C /* SorexUITests */,
+				65014A482CD3B58400C11F0C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		652AF3B92CBE8F7000B0785E /* Products */ = {
+		65014A482CD3B58400C11F0C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				652AF3B82CBE8F7000B0785E /* sorex.app */,
+				65014A472CD3B58400C11F0C /* Sorex.app */,
+				65014A582CD3B58700C11F0C /* SorexTests.xctest */,
+				65014A622CD3B58700C11F0C /* SorexUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		652AF3BA2CBE8F7000B0785E /* sorex */ = {
+		65014A492CD3B58400C11F0C /* Sorex */ = {
 			isa = PBXGroup;
 			children = (
-				65FB6C2B2CC114840038D784 /* viewmodel */,
-				65FB6C2A2CC1147C0038D784 /* view */,
-				652AF3CD2CBE900D00B0785E /* model */,
-				652AF3BB2CBE8F7000B0785E /* sorexApp.swift */,
-				652AF3BF2CBE8F7300B0785E /* Assets.xcassets */,
-				652AF3C42CBE8F7300B0785E /* sorex.entitlements */,
-				652AF3C12CBE8F7300B0785E /* Preview Content */,
+				653558D82CD3B6930017288A /* view */,
+				653558D62CD3B6930017288A /* viewmodel */,
+				653558D12CD3B6820017288A /* model */,
+				65014A4A2CD3B58400C11F0C /* SorexApp.swift */,
+				65014A4E2CD3B58600C11F0C /* Assets.xcassets */,
+				65014A532CD3B58600C11F0C /* Sorex.entitlements */,
+				65014A502CD3B58600C11F0C /* Preview Content */,
 			);
-			path = sorex;
+			path = Sorex;
 			sourceTree = "<group>";
 		};
-		652AF3C12CBE8F7300B0785E /* Preview Content */ = {
+		65014A502CD3B58600C11F0C /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				652AF3C22CBE8F7300B0785E /* Preview Assets.xcassets */,
+				65014A512CD3B58600C11F0C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		652AF3CD2CBE900D00B0785E /* model */ = {
+		65014A5B2CD3B58700C11F0C /* SorexTests */ = {
 			isa = PBXGroup;
 			children = (
-				652AF3CE2CBE900D00B0785E /* SQLiteDatabase.swift */,
-				65E067BF2CC29BFC000A8A70 /* Note.swift */,
+				65014A5C2CD3B58700C11F0C /* SorexTests.swift */,
+			);
+			path = SorexTests;
+			sourceTree = "<group>";
+		};
+		65014A652CD3B58700C11F0C /* SorexUITests */ = {
+			isa = PBXGroup;
+			children = (
+				65014A662CD3B58700C11F0C /* SorexUITests.swift */,
+				65014A682CD3B58700C11F0C /* SorexUITestsLaunchTests.swift */,
+			);
+			path = SorexUITests;
+			sourceTree = "<group>";
+		};
+		653558D12CD3B6820017288A /* model */ = {
+			isa = PBXGroup;
+			children = (
+				653558D22CD3B6820017288A /* SQLiteDatabase.swift */,
+				653558D32CD3B6820017288A /* Note.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
 		};
-		65FB6C2A2CC1147C0038D784 /* view */ = {
+		653558D62CD3B6930017288A /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
-				652AF3BD2CBE8F7000B0785E /* MainView.swift */,
-				65919AE42CCFF14500B2B300 /* ContextMenu.swift */,
-				652261A22CD0E17B00C0A47F /* Utils.swift */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		65FB6C2B2CC114840038D784 /* viewmodel */ = {
-			isa = PBXGroup;
-			children = (
-				65FB6C2C2CC114CF0038D784 /* MainViewModel.swift */,
+				653558D72CD3B6930017288A /* MainViewModel.swift */,
 			);
 			path = viewmodel;
+			sourceTree = "<group>";
+		};
+		653558D82CD3B6930017288A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				653558D92CD3B6930017288A /* ContextMenu.swift */,
+				653558DA2CD3B6930017288A /* Utils.swift */,
+				653558DB2CD3B6930017288A /* MainView.swift */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		652AF3B72CBE8F7000B0785E /* sorex */ = {
+		65014A462CD3B58400C11F0C /* Sorex */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 652AF3C72CBE8F7300B0785E /* Build configuration list for PBXNativeTarget "sorex" */;
+			buildConfigurationList = 65014A6C2CD3B58700C11F0C /* Build configuration list for PBXNativeTarget "Sorex" */;
 			buildPhases = (
-				652AF3B42CBE8F7000B0785E /* Sources */,
-				652AF3B52CBE8F7000B0785E /* Frameworks */,
-				652AF3B62CBE8F7000B0785E /* Resources */,
+				65014A432CD3B58400C11F0C /* Sources */,
+				65014A442CD3B58400C11F0C /* Frameworks */,
+				65014A452CD3B58400C11F0C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = sorex;
+			name = Sorex;
 			packageProductDependencies = (
-				652AF3CB2CBE8FD900B0785E /* MarkdownView */,
-				652AF3D12CBE902600B0785E /* SQLite */,
+				653558E12CD3B6B50017288A /* MarkdownView */,
+				653558E42CD3B6C80017288A /* SQLite */,
 			);
-			productName = sorex;
-			productReference = 652AF3B82CBE8F7000B0785E /* sorex.app */;
+			productName = Sorex;
+			productReference = 65014A472CD3B58400C11F0C /* Sorex.app */;
 			productType = "com.apple.product-type.application";
+		};
+		65014A572CD3B58700C11F0C /* SorexTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65014A6F2CD3B58700C11F0C /* Build configuration list for PBXNativeTarget "SorexTests" */;
+			buildPhases = (
+				65014A542CD3B58700C11F0C /* Sources */,
+				65014A552CD3B58700C11F0C /* Frameworks */,
+				65014A562CD3B58700C11F0C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65014A5A2CD3B58700C11F0C /* PBXTargetDependency */,
+			);
+			name = SorexTests;
+			productName = SorexTests;
+			productReference = 65014A582CD3B58700C11F0C /* SorexTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		65014A612CD3B58700C11F0C /* SorexUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65014A722CD3B58700C11F0C /* Build configuration list for PBXNativeTarget "SorexUITests" */;
+			buildPhases = (
+				65014A5E2CD3B58700C11F0C /* Sources */,
+				65014A5F2CD3B58700C11F0C /* Frameworks */,
+				65014A602CD3B58700C11F0C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65014A642CD3B58700C11F0C /* PBXTargetDependency */,
+			);
+			name = SorexUITests;
+			productName = SorexUITests;
+			productReference = 65014A622CD3B58700C11F0C /* SorexUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		652AF3B02CBE8F7000B0785E /* Project object */ = {
+		65014A3F2CD3B58300C11F0C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
-					652AF3B72CBE8F7000B0785E = {
+					65014A462CD3B58400C11F0C = {
 						CreatedOnToolsVersion = 15.2;
+					};
+					65014A572CD3B58700C11F0C = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 65014A462CD3B58400C11F0C;
+					};
+					65014A612CD3B58700C11F0C = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 65014A462CD3B58400C11F0C;
 					};
 				};
 			};
-			buildConfigurationList = 652AF3B32CBE8F7000B0785E /* Build configuration list for PBXProject "sorex" */;
+			buildConfigurationList = 65014A422CD3B58300C11F0C /* Build configuration list for PBXProject "Sorex" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -159,51 +263,97 @@
 				en,
 				Base,
 			);
-			mainGroup = 652AF3AF2CBE8F7000B0785E;
+			mainGroup = 65014A3E2CD3B58300C11F0C;
 			packageReferences = (
-				652AF3CA2CBE8FD900B0785E /* XCRemoteSwiftPackageReference "MarkdownView" */,
-				652AF3D02CBE902600B0785E /* XCRemoteSwiftPackageReference "SQLite" */,
+				653558E02CD3B6B50017288A /* XCRemoteSwiftPackageReference "MarkdownView" */,
+				653558E32CD3B6C80017288A /* XCRemoteSwiftPackageReference "SQLite" */,
 			);
-			productRefGroup = 652AF3B92CBE8F7000B0785E /* Products */;
+			productRefGroup = 65014A482CD3B58400C11F0C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				652AF3B72CBE8F7000B0785E /* sorex */,
+				65014A462CD3B58400C11F0C /* Sorex */,
+				65014A572CD3B58700C11F0C /* SorexTests */,
+				65014A612CD3B58700C11F0C /* SorexUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		652AF3B62CBE8F7000B0785E /* Resources */ = {
+		65014A452CD3B58400C11F0C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				652AF3C32CBE8F7300B0785E /* Preview Assets.xcassets in Resources */,
-				652AF3C02CBE8F7300B0785E /* Assets.xcassets in Resources */,
+				65014A522CD3B58600C11F0C /* Preview Assets.xcassets in Resources */,
+				65014A4F2CD3B58600C11F0C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65014A562CD3B58700C11F0C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65014A602CD3B58700C11F0C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		652AF3B42CBE8F7000B0785E /* Sources */ = {
+		65014A432CD3B58400C11F0C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65E067C02CC29BFC000A8A70 /* Note.swift in Sources */,
-				652AF3BE2CBE8F7000B0785E /* MainView.swift in Sources */,
-				652AF3BC2CBE8F7000B0785E /* sorexApp.swift in Sources */,
-				652261A32CD0E17B00C0A47F /* Utils.swift in Sources */,
-				652AF3CF2CBE900D00B0785E /* SQLiteDatabase.swift in Sources */,
-				65919AE52CCFF14500B2B300 /* ContextMenu.swift in Sources */,
-				65FB6C2D2CC114CF0038D784 /* MainViewModel.swift in Sources */,
+				653558DD2CD3B6930017288A /* ContextMenu.swift in Sources */,
+				653558DF2CD3B6930017288A /* MainView.swift in Sources */,
+				653558D42CD3B6820017288A /* SQLiteDatabase.swift in Sources */,
+				65014A4B2CD3B58400C11F0C /* SorexApp.swift in Sources */,
+				653558D52CD3B6820017288A /* Note.swift in Sources */,
+				653558DC2CD3B6930017288A /* MainViewModel.swift in Sources */,
+				653558DE2CD3B6930017288A /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65014A542CD3B58700C11F0C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65014A5D2CD3B58700C11F0C /* SorexTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65014A5E2CD3B58700C11F0C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65014A692CD3B58700C11F0C /* SorexUITestsLaunchTests.swift in Sources */,
+				65014A672CD3B58700C11F0C /* SorexUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		65014A5A2CD3B58700C11F0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65014A462CD3B58400C11F0C /* Sorex */;
+			targetProxy = 65014A592CD3B58700C11F0C /* PBXContainerItemProxy */;
+		};
+		65014A642CD3B58700C11F0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65014A462CD3B58400C11F0C /* Sorex */;
+			targetProxy = 65014A632CD3B58700C11F0C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		652AF3C52CBE8F7300B0785E /* Debug */ = {
+		65014A6A2CD3B58700C11F0C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -266,7 +416,7 @@
 			};
 			name = Debug;
 		};
-		652AF3C62CBE8F7300B0785E /* Release */ = {
+		65014A6B2CD3B58700C11F0C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -321,85 +471,173 @@
 			};
 			name = Release;
 		};
-		652AF3C82CBE8F7300B0785E /* Debug */ = {
+		65014A6D2CD3B58700C11F0C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = sorex/sorex.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sorex/Sorex.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"sorex/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sorex/Preview Content\"";
 				DEVELOPMENT_TEAM = UUK2LMKK3C;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Sorex;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Artem Mitrakov. mitrakov-artem@yandex.ru. All right reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Artem Mitrakov. 2023-2024. mitrakov-artem@yandex.ru. All right reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 24.10.31;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.sorex;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.Sorex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		652AF3C92CBE8F7300B0785E /* Release */ = {
+		65014A6E2CD3B58700C11F0C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = sorex/sorex.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sorex/Sorex.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"sorex/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sorex/Preview Content\"";
 				DEVELOPMENT_TEAM = UUK2LMKK3C;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Sorex;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Artem Mitrakov. mitrakov-artem@yandex.ru. All right reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Artem Mitrakov. 2023-2024. mitrakov-artem@yandex.ru. All right reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 24.10.31;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.sorex;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.Sorex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
+		65014A702CD3B58700C11F0C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UUK2LMKK3C;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.SorexTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sorex.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sorex";
+			};
+			name = Debug;
+		};
+		65014A712CD3B58700C11F0C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UUK2LMKK3C;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.SorexTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sorex.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sorex";
+			};
+			name = Release;
+		};
+		65014A732CD3B58700C11F0C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UUK2LMKK3C;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.SorexUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Sorex;
+			};
+			name = Debug;
+		};
+		65014A742CD3B58700C11F0C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UUK2LMKK3C;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.SorexUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Sorex;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		652AF3B32CBE8F7000B0785E /* Build configuration list for PBXProject "sorex" */ = {
+		65014A422CD3B58300C11F0C /* Build configuration list for PBXProject "Sorex" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				652AF3C52CBE8F7300B0785E /* Debug */,
-				652AF3C62CBE8F7300B0785E /* Release */,
+				65014A6A2CD3B58700C11F0C /* Debug */,
+				65014A6B2CD3B58700C11F0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		652AF3C72CBE8F7300B0785E /* Build configuration list for PBXNativeTarget "sorex" */ = {
+		65014A6C2CD3B58700C11F0C /* Build configuration list for PBXNativeTarget "Sorex" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				652AF3C82CBE8F7300B0785E /* Debug */,
-				652AF3C92CBE8F7300B0785E /* Release */,
+				65014A6D2CD3B58700C11F0C /* Debug */,
+				65014A6E2CD3B58700C11F0C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65014A6F2CD3B58700C11F0C /* Build configuration list for PBXNativeTarget "SorexTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65014A702CD3B58700C11F0C /* Debug */,
+				65014A712CD3B58700C11F0C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65014A722CD3B58700C11F0C /* Build configuration list for PBXNativeTarget "SorexUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65014A732CD3B58700C11F0C /* Debug */,
+				65014A742CD3B58700C11F0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -407,7 +645,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		652AF3CA2CBE8FD900B0785E /* XCRemoteSwiftPackageReference "MarkdownView" */ = {
+		653558E02CD3B6B50017288A /* XCRemoteSwiftPackageReference "MarkdownView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/LiYanan2004/MarkdownView";
 			requirement = {
@@ -415,7 +653,7 @@
 				minimumVersion = 1.7.0;
 			};
 		};
-		652AF3D02CBE902600B0785E /* XCRemoteSwiftPackageReference "SQLite" */ = {
+		653558E32CD3B6C80017288A /* XCRemoteSwiftPackageReference "SQLite" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
 			requirement = {
@@ -426,17 +664,17 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		652AF3CB2CBE8FD900B0785E /* MarkdownView */ = {
+		653558E12CD3B6B50017288A /* MarkdownView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 652AF3CA2CBE8FD900B0785E /* XCRemoteSwiftPackageReference "MarkdownView" */;
+			package = 653558E02CD3B6B50017288A /* XCRemoteSwiftPackageReference "MarkdownView" */;
 			productName = MarkdownView;
 		};
-		652AF3D12CBE902600B0785E /* SQLite */ = {
+		653558E42CD3B6C80017288A /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 652AF3D02CBE902600B0785E /* XCRemoteSwiftPackageReference "SQLite" */;
+			package = 653558E32CD3B6C80017288A /* XCRemoteSwiftPackageReference "SQLite" */;
 			productName = SQLite;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 652AF3B02CBE8F7000B0785E /* Project object */;
+	rootObject = 65014A3F2CD3B58300C11F0C /* Project object */;
 }
