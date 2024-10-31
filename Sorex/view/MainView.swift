@@ -9,7 +9,7 @@ struct MainView: View {
     @State private var currentNoteId: Int64?         // if present, it's an ID of the note in edit mode
     @State private var oldTags = ""                  // old comma-separated tags for edit mode (to calc tags diff)
     @State private var notes: [Note] = []            // in view mode, DB notes array for markdown view
-    @State private var search = ""                   // name of tag (SearchMode.tag) or keyword (SearchMode.keyword)
+    @State private var search = ""                   // search by tag name (SearchMode.tag), keyword (.keyword) or ID (.id)
     @State private var editorMode = EditorMode.edit  // edit or view mode
     @State private var searchMode = SearchMode.tag   // how to search notes (by clicking tag, by full-text, etc)
     
