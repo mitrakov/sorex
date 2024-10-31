@@ -115,12 +115,12 @@ struct MainView: View {
                             TextField("Tags...", text: $currentTags)
                                 .frame(maxWidth: 200)
                                 .cornerRadius(8)
+                                .onSubmit {
+                                    saveNote()
+                                }
                             
                             Button {
-                                let newId = vm.saveNote(currentNoteId, data: currentText, newTags: currentTags, oldTags: oldTags)
-                                if let newId = newId {
-                                    setReadMode(search: String(newId), by: .id)
-                                }
+                                saveNote()
                             } label: {
                                 Label {
                                     Text(currentNoteId == nil ? "Add Note" : "Update Note")
@@ -140,6 +140,12 @@ struct MainView: View {
         }
         .preferredColorScheme(.light)
         .navigationTitle(vm.currentPath ?? "Sorex App")
+    }
+    
+    private func saveNote() {
+        if let newId = vm.saveNote(currentNoteId, data: currentText, newTags: currentTags, oldTags: oldTags) {
+            setReadMode(search: String(newId), by: .id)
+        }
     }
     
     private func setEditMode(noteId: Int64? = nil, text: String = "", tags: String = "") {
