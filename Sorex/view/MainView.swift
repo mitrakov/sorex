@@ -2,7 +2,7 @@ import SwiftUI
 import MarkdownView
 
 struct MainView: View {
-    @ObservedObject var vm: MainViewModel
+    @EnvironmentObject var vm: MainViewModel
     @State private var currentText = ""              // binding for main text in add/edit mode
     @State private var currentTags = ""              // binding for comma-separated tags in the text field
     @State private var searchKeyword = ""            // binding for full-text search textfield
@@ -178,5 +178,5 @@ enum SearchMode {
 }
 
 #Preview {
-    MainView(vm: MainViewModel())
+    MainView().environmentObject(MainViewModel())
 }

@@ -5,12 +5,12 @@ let recentFilesKey = "RECENT_FILES"
 @main
 struct sorexApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate // remove standard MacOS menu items (https://stackoverflow.com/a/70553784/2212849)
-    let vm = MainViewModel()
-    @State private var recentFiles = UserDefaults.standard.stringArray(forKey: recentFilesKey) ?? []
+    private let vm = MainViewModel()
+    @State private var recentFiles = UserDefaults.standard.stringArray(forKey: recentFilesKey) ?? [] // don't use @AppStorage because it cannot decode arrays
     
     var body: some Scene {
         WindowGroup {
-            MainView(vm: vm)
+            MainView().environmentObject(vm)
         }
         .commands {
             CommandGroup(replacing: .systemServices) {} // rm "sorex  -> Services"
