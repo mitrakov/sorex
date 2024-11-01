@@ -1,5 +1,5 @@
 import SwiftUI
-import MarkdownView
+import MarkdownUI
 
 struct MainView: View {
     @EnvironmentObject var vm: MainViewModel
@@ -71,10 +71,12 @@ struct MainView: View {
                     case .read:
                         ScrollView {
                             if vm.currentPath != nil {
+                                // LIST OF NOTES
                                 ForEach(notes) { note in
                                     ZStack(alignment: .topTrailing) {
                                         HStack {
-                                            MarkdownView(text: note.data)
+                                            Markdown(note.data)
+                                                .markdownTheme(.docC)
                                                 .textSelection(.enabled)
                                             Spacer()
                                         }
@@ -105,7 +107,8 @@ struct MainView: View {
                             // RIGHT PREVIEW
                             ScrollView {
                                 HStack {
-                                    MarkdownView(text: currentText)
+                                    Markdown(currentText)
+                                        .markdownTheme(.docC)
                                         .textSelection(.enabled)
                                     Spacer()
                                 }

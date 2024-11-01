@@ -19,8 +19,8 @@
 		653558DD2CD3B6930017288A /* ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558D92CD3B6930017288A /* ContextMenu.swift */; };
 		653558DE2CD3B6930017288A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558DA2CD3B6930017288A /* Utils.swift */; };
 		653558DF2CD3B6930017288A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558DB2CD3B6930017288A /* MainView.swift */; };
-		653558E22CD3B6B50017288A /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = 653558E12CD3B6B50017288A /* MarkdownView */; };
 		653558E52CD3B6C80017288A /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 653558E42CD3B6C80017288A /* SQLite */; };
+		657D54452CD4DF3500662C9D /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 657D54442CD4DF3500662C9D /* MarkdownUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +65,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				653558E52CD3B6C80017288A /* SQLite in Frameworks */,
-				653558E22CD3B6B50017288A /* MarkdownView in Frameworks */,
+				657D54452CD4DF3500662C9D /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,8 +189,8 @@
 			);
 			name = Sorex;
 			packageProductDependencies = (
-				653558E12CD3B6B50017288A /* MarkdownView */,
 				653558E42CD3B6C80017288A /* SQLite */,
+				657D54442CD4DF3500662C9D /* MarkdownUI */,
 			);
 			productName = Sorex;
 			productReference = 65014A472CD3B58400C11F0C /* Sorex.app */;
@@ -265,8 +265,8 @@
 			);
 			mainGroup = 65014A3E2CD3B58300C11F0C;
 			packageReferences = (
-				653558E02CD3B6B50017288A /* XCRemoteSwiftPackageReference "MarkdownView" */,
 				653558E32CD3B6C80017288A /* XCRemoteSwiftPackageReference "SQLite" */,
+				657D54432CD4DF3500662C9D /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 			);
 			productRefGroup = 65014A482CD3B58400C11F0C /* Products */;
 			projectDirPath = "";
@@ -493,7 +493,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 24.10.31;
+				MARKETING_VERSION = 24.11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.Sorex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -523,7 +523,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 24.10.31;
+				MARKETING_VERSION = 24.11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mitrakoff.self.Sorex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -645,14 +645,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		653558E02CD3B6B50017288A /* XCRemoteSwiftPackageReference "MarkdownView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/LiYanan2004/MarkdownView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.0;
-			};
-		};
 		653558E32CD3B6C80017288A /* XCRemoteSwiftPackageReference "SQLite" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
@@ -661,18 +653,26 @@
 				minimumVersion = 0.15.3;
 			};
 		};
+		657D54432CD4DF3500662C9D /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		653558E12CD3B6B50017288A /* MarkdownView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 653558E02CD3B6B50017288A /* XCRemoteSwiftPackageReference "MarkdownView" */;
-			productName = MarkdownView;
-		};
 		653558E42CD3B6C80017288A /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 653558E32CD3B6C80017288A /* XCRemoteSwiftPackageReference "SQLite" */;
 			productName = SQLite;
+		};
+		657D54442CD4DF3500662C9D /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 657D54432CD4DF3500662C9D /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
