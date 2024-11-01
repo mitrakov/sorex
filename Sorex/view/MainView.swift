@@ -1,5 +1,5 @@
 import SwiftUI
-import MarkdownUI
+import MarkdownUI // don't use "https://github.com/LiYanan2004/MarkdownView", it has performance issues
 
 struct MainView: View {
     @EnvironmentObject var vm: MainViewModel
@@ -35,18 +35,19 @@ struct MainView: View {
                                 .foregroundColor(.black)
                         }
                     }
-                    .padding(10)
+                    .padding(8)
                     .disabled(vm.currentPath == nil)
                     .buttonStyle(PlainButtonStyle())
                     
                     TextField("Global search...", text: $searchKeyword)
-                        .cornerRadius(8)
+                        .cornerRadius(12)
                         .padding(.top, 16)
                         .padding(.trailing, 8)
                         .onSubmit {
                             setReadMode(search: searchKeyword, by: .keyword)
                         }
                 }
+                // LIST OF TAGS
                 ScrollView {
                     ForEach(vm.getTags(), id: \.self) { tag in
                         HStack {
@@ -61,7 +62,9 @@ struct MainView: View {
                         }
                     }
                 }
-            }.frame(maxWidth: 200)
+            }
+            .padding(.leading, 8)
+            .frame(maxWidth: 200)
 
             // RIGHT MAIN AREA
             HStack {
