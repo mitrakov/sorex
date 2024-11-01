@@ -21,6 +21,7 @@
 		653558DF2CD3B6930017288A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653558DB2CD3B6930017288A /* MainView.swift */; };
 		653558E52CD3B6C80017288A /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 653558E42CD3B6C80017288A /* SQLite */; };
 		657D54452CD4DF3500662C9D /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 657D54442CD4DF3500662C9D /* MarkdownUI */; };
+		657D544C2CD4F14A00662C9D /* FocusableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657D544B2CD4F14A00662C9D /* FocusableTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		653558D92CD3B6930017288A /* ContextMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextMenu.swift; sourceTree = "<group>"; };
 		653558DA2CD3B6930017288A /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		653558DB2CD3B6930017288A /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		657D544B2CD4F14A00662C9D /* FocusableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				653558D62CD3B6930017288A /* viewmodel */,
 				653558D12CD3B6820017288A /* model */,
 				65014A4A2CD3B58400C11F0C /* SorexApp.swift */,
+				653558DA2CD3B6930017288A /* Utils.swift */,
 				65014A4E2CD3B58600C11F0C /* Assets.xcassets */,
 				65014A532CD3B58600C11F0C /* Sorex.entitlements */,
 				65014A502CD3B58600C11F0C /* Preview Content */,
@@ -166,8 +169,8 @@
 			isa = PBXGroup;
 			children = (
 				653558D92CD3B6930017288A /* ContextMenu.swift */,
-				653558DA2CD3B6930017288A /* Utils.swift */,
 				653558DB2CD3B6930017288A /* MainView.swift */,
+				657D544B2CD4F14A00662C9D /* FocusableTextField.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				653558DF2CD3B6930017288A /* MainView.swift in Sources */,
 				653558D42CD3B6820017288A /* SQLiteDatabase.swift in Sources */,
 				65014A4B2CD3B58400C11F0C /* SorexApp.swift in Sources */,
+				657D544C2CD4F14A00662C9D /* FocusableTextField.swift in Sources */,
 				653558D52CD3B6820017288A /* Note.swift in Sources */,
 				653558DC2CD3B6930017288A /* MainViewModel.swift in Sources */,
 				653558DE2CD3B6930017288A /* Utils.swift in Sources */,
@@ -481,7 +485,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Sorex/Preview Content\"";
 				DEVELOPMENT_TEAM = UUK2LMKK3C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -511,7 +515,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Sorex/Preview Content\"";
 				DEVELOPMENT_TEAM = UUK2LMKK3C;
 				ENABLE_HARDENED_RUNTIME = YES;

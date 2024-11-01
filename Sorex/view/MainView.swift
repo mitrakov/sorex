@@ -14,7 +14,7 @@ struct MainView: View {
     @State private var searchMode = SearchMode.tag   // how to search notes (by clicking tag, by full-text, etc)
     
     var body: some View {
-        HSplitView { // don't use NavigationSplitView because of the bug in SwiftUI (https://stackoverflow.com/q/74585499)
+        HSplitView {
             // LEFT TOOLBAR
             VStack {
                 HStack(alignment: .top) {
@@ -39,13 +39,13 @@ struct MainView: View {
                     .disabled(vm.currentPath == nil)
                     .buttonStyle(PlainButtonStyle())
                     
-                    TextField("Global search...", text: $searchKeyword)
-                        .cornerRadius(12)
-                        .padding(.top, 16)
-                        .padding(.trailing, 8)
-                        .onSubmit {
-                            setReadMode(search: searchKeyword, by: .keyword)
-                        }
+                    // don't use TextField due to bug: https://stackoverflow.com/q/74585499
+                    FocusableTextField(stringValue: $searchKeyword, placeholder: "Global search...", onEnter: {
+                        setReadMode(search: searchKeyword, by: .keyword)
+                    })
+                    .cornerRadius(12)
+                    .padding(.top, 16)
+                    .padding(.trailing, 8)
                 }
                 // LIST OF TAGS
                 ScrollView {
@@ -122,12 +122,12 @@ struct MainView: View {
                         // BOTTOM PANEL
                         HStack {
                             Text("Tags:")
-                            TextField("Tags...", text: $currentTags)
-                                .frame(maxWidth: 200)
-                                .cornerRadius(8)
-                                .onSubmit {
-                                    saveNote()
-                                }
+                            // don't use TextField due to bug: https://stackoverflow.com/q/74585499
+                            FocusableTextField(stringValue: $currentTags, placeholder: "Tags...", onEnter: {
+                                saveNote()
+                            })
+                            .frame(maxWidth: 200)
+                            .cornerRadius(8)
                             
                             Button {
                                 saveNote()
