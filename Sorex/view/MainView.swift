@@ -1,5 +1,5 @@
 import SwiftUI
-import MarkdownUI // don't use "https://github.com/LiYanan2004/MarkdownView", it has performance issues
+import MarkdownUI // don't use "LiYanan2004/MarkdownView", it has performance issues (https://github.com/LiYanan2004/MarkdownView/issues/36)
 
 struct MainView: View {
     @EnvironmentObject var vm: MainViewModel
