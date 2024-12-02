@@ -94,7 +94,19 @@ class SQLiteDatabase {
     ///   - data: markdown string
     func updateNote(_ noteId: Int64, _ data: String) {
         do {
-            try db?.run("UPDATE notedata SET data = ? WHERE rowid = ?;", data, noteId)
+            try db?.transaction {
+                try db?.run("UPDATE notedata SET data = ? WHERE rowid = ?;", data, noteId)
+                try db?.run("UPDATE note SET updated_at = CURRENT_TIMESTAMP WHERE note_id = ?;", noteId)
+            }
+        } catch {print(error)}
+    }
+
+    /// Soft-deletes (or restores) a given note from the database
+    /// - Parameters:
+    ///   - noteId: note ID
+    func softDeleteNote(_ noteId: Int64, deleted: Bool) {
+        do {
+            try db?.run("UPDATE note SET is_deleted = ?, updated_at = CURRENT_TIMESTAMP WHERE note_id = ?;", deleted, noteId);
         } catch {print(error)}
     }
     
@@ -113,19 +125,22 @@ class SQLiteDatabase {
     
     /// Fetches all notes from the database
     /// - Returns: a list on notes
-    func getNotes() -> [Note] {
+    func getNotes(fetchDeleted: Bool) -> [Note] {
         let sql = """
-          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags
+          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags, is_deleted
           FROM note
           INNER JOIN notedata ON note_id = notedata.rowid
           INNER JOIN note_to_tag USING (note_id)
           INNER JOIN tag         USING (tag_id)
+        """
+        + (fetchDeleted ? "" : "WHERE NOT is_deleted ") +
+        """
           GROUP BY note_id
           ORDER BY note_id ASC
           ;
         """
         do {
-            return try db?.run(sql).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String)} ?? []
+            return try db?.run(sql).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String, isDeleted: $0[3] as! Int64 > 0)} ?? []
         } catch {print(error)}
         
         return []
@@ -146,7 +161,7 @@ class SQLiteDatabase {
     /// - Returns: optional Note
     func searchByID(_ id: Int64) -> Note? {
         let sql = """
-          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags
+          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags, is_deleted
           FROM note
           INNER JOIN notedata ON note_id = notedata.rowid
           INNER JOIN note_to_tag USING (note_id)
@@ -156,7 +171,7 @@ class SQLiteDatabase {
           ;
         """
         do {
-            return try db?.run(sql, id).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String)}.first
+            return try db?.run(sql, id).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String, isDeleted: $0[3] as! Int64 > 0)}.first
         } catch {print(error)}
 
         return nil
@@ -166,20 +181,23 @@ class SQLiteDatabase {
     /// - Parameters:
     ///   - tag: tag to search
     /// - Returns: a list of notes
-    func searchByTag(_ tag: String) -> [Note] {
+    func searchByTag(_ tag: String, fetchDeleted: Bool) -> [Note] {
         let sql = """
-          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags
+          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags, is_deleted
           FROM note
           INNER JOIN notedata ON note_id = notedata.rowid
           INNER JOIN note_to_tag USING (note_id)
           INNER JOIN tag         USING (tag_id)
           WHERE note_id IN (SELECT note_id FROM tag INNER JOIN note_to_tag USING (tag_id) WHERE name = ?)
+        """
+        + (fetchDeleted ? "" : "AND NOT is_deleted ") +
+        """
           GROUP BY note_id
           ORDER BY note.updated_at DESC
           ;
         """
         do {
-            return try db?.run(sql, tag).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String)} ?? []
+            return try db?.run(sql, tag).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String, isDeleted: $0[3] as! Int64 > 0)} ?? []
         } catch {print(error)}
         
         return []
@@ -189,22 +207,25 @@ class SQLiteDatabase {
     /// - Parameters:
     ///   - tag: keyword to search
     /// - Returns: a list of notes
-    func searchByKeyword(_ word: String) -> [Note] {
+    func searchByKeyword(_ word: String, fetchDeleted: Bool) -> [Note] {
         guard !word.isEmpty else {return []}
 
         let sql = """
-          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags
+          SELECT note_id, data, GROUP_CONCAT(name, ', ') AS tags, is_deleted
           FROM note
           INNER JOIN notedata ON note_id = notedata.rowid
           INNER JOIN note_to_tag USING (note_id)
           INNER JOIN tag         USING (tag_id)
           WHERE data MATCH ?
+        """
+        + (fetchDeleted ? "" : "WHERE NOT is_deleted ") +
+        """
           GROUP BY note_id
           ORDER BY notedata.rank ASC, note.updated_at DESC
           ;
         """
         do {
-            return try db?.run(sql, word).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String)} ?? []
+            return try db?.run(sql, word).map {Note(id: $0[0] as! Int64, data: $0[1] as! String, tags: $0[2] as! String, isDeleted: $0[3] as! Int64 > 0)} ?? []
         } catch {print(error)}
         
         return []

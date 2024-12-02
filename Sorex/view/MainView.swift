@@ -12,6 +12,7 @@ struct MainView: View {
     @State private var search = ""                   // search by tag name (SearchMode.tag), keyword (.keyword) or ID (.id)
     @State private var editorMode = EditorMode.edit  // edit or view mode
     @State private var searchMode = SearchMode.tag   // how to search notes (by clicking tag, by full-text, etc)
+    @State private var showArchived = false          // whether to show soft-deleted (archived) notes
     
     var body: some View {
         HSplitView {
@@ -36,17 +37,26 @@ struct MainView: View {
                         }
                     }
                     .padding(8)
-                    .disabled(vm.currentPath == nil)
                     .buttonStyle(PlainButtonStyle())
                     
-                    // don't use TextField due to bug: https://stackoverflow.com/q/74585499
-                    FocusableTextField(stringValue: $searchKeyword, placeholder: "Global search...", onEnter: {
-                        setReadMode(search: searchKeyword, by: .keyword)
-                    })
-                    .cornerRadius(12)
-                    .padding(.top, 16)
-                    .padding(.trailing, 8)
+                    VStack {
+                        // don't use TextField due to bug: https://stackoverflow.com/q/74585499
+                        FocusableTextField(stringValue: $searchKeyword, placeholder: "Global search...", onEnter: {
+                            setReadMode(search: searchKeyword, by: .keyword)
+                        })
+                        .cornerRadius(12)
+                        .padding(.top, 4)
+                        .padding(.trailing, 8)
+
+                        Toggle("Show archive", isOn: $showArchived)
+                            .toggleStyle(SwitchToggleStyle(tint: .red))
+                            .onChange(of: showArchived) { value in
+                                setReadMode(search: search, by: searchMode) // update
+                            }
+                            .padding(.trailing, 4)
+                    }
                 }
+
                 // LIST OF TAGS
                 ScrollView {
                     ForEach(vm.getTags(), id: \.self) { tag in
@@ -81,15 +91,22 @@ struct MainView: View {
                                             Markdown(note.data)
                                                 .markdownTheme(.docC)
                                                 .textSelection(.enabled)
+                                                .opacity(note.isDeleted ? 0.6 : 1)
                                             Spacer()
                                         }
                                         
-                                        ContextMenu(tags: Utils.splitStringBy(note.tags, ","),
-                                          onEdit: {
+                                        ContextMenu(isArchived: note.isDeleted, tags: Utils.splitStringBy(note.tags, ","),
+                                           onEdit: {
                                             setEditMode(noteId: note.id, text: note.data, tags: note.tags)
+                                        }, onArchive: {
+                                            vm.archiveNoteById(note.id)
+                                            setReadMode(search: search, by: searchMode) // update
+                                        }, onRestore: {
+                                            vm.restoreNoteById(note.id)
+                                            setReadMode(search: search, by: searchMode) // update
                                         }, onDelete: {
                                             vm.deleteNoteById(note.id)
-                                            setReadMode(search: search, by: searchMode)
+                                            setReadMode(search: search, by: searchMode) // update
                                         })
                                     }
                                     Divider()
@@ -141,7 +158,6 @@ struct MainView: View {
                                 }
                                 .foregroundColor(.black.opacity(0.8))
                             }
-                            .disabled(vm.currentPath == nil)
                             
                             Spacer()
                         }.padding(.bottom, 10)
@@ -151,6 +167,7 @@ struct MainView: View {
         }
         .preferredColorScheme(.light)
         .navigationTitle(vm.currentPath ?? "Sorex")
+        .disabled(vm.currentPath == nil)
     }
     
     private func saveNote() {
@@ -177,8 +194,8 @@ struct MainView: View {
         self.searchKeyword = searchKeyword
         self.currentNoteId = nil
         self.oldTags = ""
-        self.notes = by == .tag     ? vm.searchByTag(search) :
-                     by == .keyword ? vm.searchByKeyword(search) :
+        self.notes = by == .tag     ? vm.searchByTag(search, showArchive: showArchived) :
+                     by == .keyword ? vm.searchByKeyword(search, showArchive: showArchived) :
                      by == .id      ? vm.searchByID(Int64(search)!).map{[$0]} ?? [] : []
         self.search = search
         self.editorMode = .read

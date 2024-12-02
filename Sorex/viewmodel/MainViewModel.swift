@@ -55,9 +55,9 @@ class MainViewModel: ObservableObject {
         return db.getTags()
     }
     
-    func getNotes() -> [Note] {
+    func getNotes(showArchive: Bool) -> [Note] {
         guard db.isConnected() else {return []}
-        return db.getNotes()
+        return db.getNotes(fetchDeleted: showArchive)
     }
     
     func searchByID(_ noteId: Int64) -> Note? {
@@ -65,16 +65,28 @@ class MainViewModel: ObservableObject {
         return db.searchByID(noteId)
     }
     
-    func searchByTag(_ tag: String) -> [Note] {
+    func searchByTag(_ tag: String, showArchive: Bool) -> [Note] {
         guard !tag.isEmpty else {return []}
         guard db.isConnected() else {return []}
-        return db.searchByTag(tag)
+        return db.searchByTag(tag, fetchDeleted: showArchive)
     }
     
-    func searchByKeyword(_ word: String) -> [Note] {
+    func searchByKeyword(_ word: String, showArchive: Bool) -> [Note] {
         guard !word.isEmpty else {return []}
         guard db.isConnected() else {return []}
-        return db.searchByKeyword(word)
+        return db.searchByKeyword(word, fetchDeleted: showArchive)
+    }
+
+    func archiveNoteById(_ noteId: Int64) {
+        guard db.isConnected() else {return}
+        if Utils.showYesNoDialog("Archive note", "Are you sure you want to archive this note? It can be restored later") {
+            db.softDeleteNote(noteId, deleted: true)
+        }
+    }
+
+    func restoreNoteById(_ noteId: Int64) {
+        guard db.isConnected() else {return}
+        db.softDeleteNote(noteId, deleted: false)
     }
     
     func deleteNoteById(_ noteId: Int64) {
