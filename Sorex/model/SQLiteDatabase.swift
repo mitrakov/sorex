@@ -218,7 +218,7 @@ class SQLiteDatabase {
           INNER JOIN tag         USING (tag_id)
           WHERE data MATCH ?
         """
-        + (fetchDeleted ? "" : "WHERE NOT is_deleted ") +
+        + (fetchDeleted ? "" : "AND NOT is_deleted ") +
         """
           GROUP BY note_id
           ORDER BY notedata.rank ASC, note.updated_at DESC
